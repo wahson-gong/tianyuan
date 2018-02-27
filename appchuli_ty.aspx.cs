@@ -1231,7 +1231,176 @@ public partial class Execution : System.Web.UI.Page
 
             } 
             #endregion
-            
+
+
+        }
+        else if (type == "pingjuxiangxi")
+        {
+            //查询凭据详细数据接口
+            /*
+             *凭据令牌==> password
+             *用户名
+             *
+             */
+            #region 查询订单详细数据接口
+            if (is_login())
+            {
+                string PassWord = string.Empty;//凭据令牌
+                  
+                try
+                {
+
+                    PassWord = Request.Params["PassWord"];
+                }
+                catch { }
+                 
+                if (!string.IsNullOrEmpty(PassWord))
+                {
+                    DataTable dt = new DataTable();
+                    //初始化派单的详细数据datatable
+                    string[] dt_araay = { "TicketDetail", "UserDetail","OrderID"};
+                    dt = my_dt.setdt(dt_araay);
+
+                    //查询凭据详情
+                    //
+                    DataTable dt_Ticket = my_c.GetTable("select  t.ID,t.UserID,t.Number,t.Body,t.State,t.Name,d.Value,l.userurl    from Ticket as t,TicketDetailed as d,TicketLable as l  where PassWord='" + PassWord + "' and d.TicketID=t.ID and l.TicketID=t.ID", "sql_conn5");
+                    DataTable dt_user = new DataTable();
+
+                    //select Number,Name,Phone from [User] where ID='7e6c62d2-3118-4975-99bb-beeb1097e6a3'
+                    string UserID = "";
+                    string OrderID = "";
+                    try
+                    {
+                        UserID = dt_Ticket.Rows[0]["UserID"].ToString();
+                        OrderID = dt_Ticket.Rows[0]["userurl"].ToString();//订单ID
+                        var uri = new Uri(OrderID);
+                        var query = HttpUtility.ParseQueryString(uri.Query);
+                        OrderID = query.Get("ID");
+                    }
+                    catch { }
+                     
+                    if (!string.IsNullOrEmpty(UserID))
+                    {
+                        dt_user = my_c.GetTable("select Number,Name,Phone from [User] where ID='" + UserID + "'", "sql_conn12");
+                    
+                    }
+
+                    
+
+                    DataRow temp_dr = dt.NewRow();
+                    temp_dr["TicketDetail"] = my_json_ghy.DataTableToJsonWithJavaScriptSerializer(dt_Ticket);
+                    temp_dr["UserDetail"] = my_json_ghy.DataTableToJsonWithJavaScriptSerializer(dt_user);
+                    temp_dr["OrderID"] = OrderID; 
+                    //插入返回数据
+                    dt.Rows.Add(temp_dr);
+
+                    status = "true";
+                    msg = my_json_ghy.DataTableToJsonWithJavaScriptSerializer(dt);
+                }
+                else
+                {
+                    msg = "凭据令牌PassWord 不能为空";
+                }
+
+
+            }
+            else
+            {
+                msg = "请登录后再操作";
+            }
+            #endregion
+
+
+
+        }
+        else if (type == "pingjushiyong")
+        {
+            //使用凭据数据接口
+            /*
+             *凭据id TicketID 
+             *用户名 token
+             *
+             */
+            #region 查询订单详细数据接口
+            if (is_login())
+            {
+                string TicketID = string.Empty;//凭据令牌
+
+                try
+                {
+
+                    TicketID = Request.Params["TicketID"];
+                }
+                catch { }
+
+                if (!string.IsNullOrEmpty(TicketID))
+                {
+                    
+                    //查询凭据详情
+                    //
+                    DataTable dt_Ticket = my_c.GetTable("select * from Ticket where ID='" + TicketID + "' ", "sql_conn5");
+
+                    //凭据当前状态，只有State==0 才能修改状态
+                    if (dt_Ticket.Rows.Count > 0)
+                    {
+                        string State = "";
+                        State = dt_Ticket.Rows[0]["State"].ToString();
+
+                        if (State=="0")
+                        {
+                            //查询当前使用凭据的配送员
+                            string UserID = this.getUserid();
+                            DataTable dt_user = my_c.GetTable("");
+                            dt_user = my_c.GetTable("select Number,Name,Phone from [User] where ID='" + UserID + "'", "sql_conn12");
+                            string Number = "";
+                            string Name = "";
+                            if (dt_user.Rows.Count > 0)
+                            {
+                                Number = dt_user.Rows[0]["Number"].ToString();
+                                Name = dt_user.Rows[0]["Name"].ToString();
+                            }
+
+                            string sql_update_ticket = "update Ticket set State=1 , UseRemarks='" + Name + "（" + Number + "）' ,UseTime = getdate() where id='" + TicketID + "'";
+                             
+                            try
+                            {
+                                my_c.genxin(sql_update_ticket);
+                                status = "true";
+                                msg = "使用成功";
+                            }
+                            catch {
+                                status = "false";
+                                msg = "修改失败";
+                            }
+                           
+                        }
+                        else
+                        {
+                            status = "false";
+                            msg = "当前凭据状态为：" + State + ",不能使用";
+                        }
+                    }
+                    else
+                    {
+                        msg = "凭据不存在，请稍后重试";
+                    }
+                     
+                    
+                }
+                else
+                {
+                    msg = "凭据id 不能为空";
+                }
+
+
+            }
+            else
+            {
+                msg = "请登录后再操作";
+            }
+            #endregion
+
+
 
         }
         else
@@ -1470,6 +1639,8 @@ public partial class Execution : System.Web.UI.Page
         return false;
         
     }
+
+    
 
     /// <summary>
     /// 得到当前用户的手机号
