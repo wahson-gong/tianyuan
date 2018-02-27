@@ -1174,7 +1174,7 @@ public partial class Execution : System.Web.UI.Page
                     {
 
                         ps_UserIDs = my_b.getWebFile1(ConfigurationSettings.AppSettings["ps_url"].ToString());//全部配送用户的ID
-                        pz_UserIDs = my_b.getWebFile1(ConfigurationSettings.AppSettings["pz_url"].ToString());//全部凭证用户的ID
+                        pz_UserIDs = my_b.getWebFile1(ConfigurationSettings.AppSettings["pj_url"].ToString());//全部凭证用户的ID
                     }
                     catch { }
 
@@ -1315,7 +1315,7 @@ public partial class Execution : System.Web.UI.Page
         }
         else if (type == "pingjushiyong")
         {
-            //使用凭据数据接口
+            //使用扫描获得的凭据数据接口
             /*
              *凭据id TicketID 
              *用户名 token
@@ -1361,17 +1361,10 @@ public partial class Execution : System.Web.UI.Page
                             }
 
                             string sql_update_ticket = "update Ticket set State=1 , UseRemarks='" + Name + "（" + Number + "）' ,UseTime = getdate() where id='" + TicketID + "'";
-                             
-                            try
-                            {
-                                my_c.genxin(sql_update_ticket);
-                                status = "true";
-                                msg = "使用成功";
-                            }
-                            catch {
-                                status = "false";
-                                msg = "修改失败";
-                            }
+
+                            my_c.genxin(sql_update_ticket, "sql_conn5");
+                            status = "true";
+                            msg = "使用成功";
                            
                         }
                         else
@@ -1399,9 +1392,7 @@ public partial class Execution : System.Web.UI.Page
                 msg = "请登录后再操作";
             }
             #endregion
-
-
-
+ 
         }
         else
         {
