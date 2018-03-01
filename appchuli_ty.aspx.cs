@@ -812,7 +812,12 @@ public partial class Execution : System.Web.UI.Page
                         temp_dr["Latitude"] = dt_GroupLocation.Rows[0]["Latitude"].ToString();
                         temp_dr["Longitude"] = dt_GroupLocation.Rows[0]["Longitude"].ToString();
                         //插入返回数据
-                        dt.Rows.Add(temp_dr);
+                        //如果记录已存在则不再插入数据
+                        if (dt.Select("ID='" + dt_GroupLocation.Rows[0]["ID"].ToString() + "'").Length == 0)
+                        {
+                            dt.Rows.Add(temp_dr);
+                        }
+                        
 
                     }
                 }
@@ -840,7 +845,11 @@ public partial class Execution : System.Web.UI.Page
                         temp_dr["Latitude"] = dt_GroupLocation.Rows[0]["Latitude"].ToString();
                         temp_dr["Longitude"] = dt_GroupLocation.Rows[0]["Longitude"].ToString();
                         //插入返回数据
-                        dt.Rows.Add(temp_dr);
+                        //如果记录已存在则不再插入数据
+                        if (dt.Select("ID='" + dt_GroupLocation.Rows[0]["ID"].ToString() + "'").Length == 0)
+                        {
+                            dt.Rows.Add(temp_dr);
+                        }
 
                     }
                 }
@@ -867,7 +876,11 @@ public partial class Execution : System.Web.UI.Page
                         temp_dr["Latitude"] = dt_GroupLocation.Rows[0]["Latitude"].ToString();
                         temp_dr["Longitude"] = dt_GroupLocation.Rows[0]["Longitude"].ToString();
                         //插入返回数据
-                        dt.Rows.Add(temp_dr);
+                        //如果记录已存在则不再插入数据
+                        if (dt.Select("ID='" + dt_GroupLocation.Rows[0]["ID"].ToString() + "'").Length == 0)
+                        {
+                            dt.Rows.Add(temp_dr);
+                        }
 
                     }
                 }
@@ -1103,31 +1116,51 @@ public partial class Execution : System.Web.UI.Page
                 if (!string.IsNullOrEmpty(FromValue))
                 {
                     DataTable dt = new DataTable();
-                    //初始化派单的详细数据datatable
-                    string[] dt_araay = { "OrderDetail", "Recode", "Commodity" };
+                    //初始化派单的详细数据datatable 配送单编号ServerNumber
+                    string[] dt_araay = { "OrderDetail", "Recode", "Commodity", "ServiceNumber" };
                     dt = my_dt.setdt(dt_araay);
 
                     //查询订单详情
-                    DataTable dt_Order = my_c.GetTable("select Number,State,paystate, CONVERT(varchar(100), UpTime, 121) as UpTime   from [Order] where id='" + FromValue + "'", "sql_conn2");
-                    //生成二维码
-                    string dingdanhao = dt_Order.Rows[0]["Number"].ToString();
-                    string erweima_url_str = "http://test1.thishttp.com/indexf.aspx?OrderID=" + dingdanhao;
-                    string erweima_url_img = CreateCode_Simple(erweima_url_str);
-                    //订单包含商品
-                    DataTable dt_Commodity = my_c.GetTable("select Name, Price,ImgFile,Num  from OrderCommodity where OrderID='" + FromValue + "'", "sql_conn2");
+                    DataTable dt_Order = my_c.GetTable("select ID,Number,State,paystate, CONVERT(varchar(100), UpTime, 121) as UpTime   from [Order] where id='" + FromValue + "' or Number='" + FromValue + "' ", "sql_conn2");
+                    if (dt_Order.Rows.Count > 0)
+                    {
+                        //订单表主键
+                        string ID = dt_Order.Rows[0]["ID"].ToString();
+                        //生成二维码
+                        string dingdanhao = dt_Order.Rows[0]["Number"].ToString();
+                        string erweima_url_str = "http://test1.thishttp.com/indexf.aspx?OrderID=" + dingdanhao;
+                        string erweima_url_img = CreateCode_Simple(erweima_url_str);
+                        //通过订单ID查询配送单的number字段
+                        DataTable dt_Service = my_c.GetTable("select Number   from [Service] where OutUrl like '%" + ID + "%' or EndUrl like '%" + ID + "%'  ", "sql_conn7");
+                        Response.Write("select Number   from [Service] where OutUrl like '%" + ID + "%' or EndUrl like '%" + ID + "%'  ");
+                        Response.End();
+                        string ServiceNumber = "";
+                        if (dt_Service.Rows.Count > 0)
+                        {
+                             ServiceNumber = dt_Service.Rows[0]["Number"].ToString();
+                        }
+                        //订单包含商品
+                        DataTable dt_Commodity = my_c.GetTable("select Name, Price,ImgFile,Num  from OrderCommodity where OrderID='" + FromValue + "'", "sql_conn2");
 
 
 
-                    DataRow temp_dr = dt.NewRow();
-                    temp_dr["OrderDetail"] = my_json_ghy.DataTableToJsonWithJavaScriptSerializer(dt_Order);
-                    temp_dr["Recode"] = erweima_url_img;
-                    temp_dr["Commodity"] = my_json_ghy.DataTableToJsonWithJavaScriptSerializer(dt_Commodity);
-                     
-                    //插入返回数据
-                    dt.Rows.Add(temp_dr);
+                        DataRow temp_dr = dt.NewRow();
+                        temp_dr["OrderDetail"] = my_json_ghy.DataTableToJsonWithJavaScriptSerializer(dt_Order);
+                        temp_dr["Recode"] = erweima_url_img;
+                        temp_dr["Commodity"] = my_json_ghy.DataTableToJsonWithJavaScriptSerializer(dt_Commodity);
+                        temp_dr["ServiceNumber"] = ServiceNumber;
+                        //插入返回数据
+                        dt.Rows.Add(temp_dr);
 
-                    status = "true";
-                    msg = my_json_ghy.DataTableToJsonWithJavaScriptSerializer(dt);
+                        status = "true";
+                        msg = my_json_ghy.DataTableToJsonWithJavaScriptSerializer(dt);
+                    }
+                    else {
+                        status = "false";
+                        msg = "订单号不存在";
+                    
+                    }
+                    
                 }
                 else
                 {
@@ -1392,7 +1425,66 @@ public partial class Execution : System.Web.UI.Page
                 msg = "请登录后再操作";
             }
             #endregion
- 
+
+        }
+        else if (type == "shenqingpeisong")
+        {
+            //使用扫描获得的凭据数据接口
+            /*
+             *订单主键id orderid 
+             *用户名 token
+             *
+             */
+            #region 查询订单详细数据接口
+            if (is_login())
+            {
+                string orderid = string.Empty;//凭据令牌
+
+                try
+                {
+
+                    orderid = Request.Params["orderid"];
+                }
+                catch { }
+
+                if (!string.IsNullOrEmpty(orderid))
+                {
+                    string sql_Service = "";
+                    string sql_ServiceLable = "";
+                    string sql_ServiceLog = "";
+                    string ID, Number, Type, BeginTime, ServiceBodyID, Name, Body, Num, FromType, FromValue, UserID, UserName, ServiceID, ServiceName, ServicePhone, Address, State, EndUrl, OutUrl, UpTime, InTime;
+
+                    //插入Service记录
+                    sql_Service = "INSERT INTO sl_token (";
+                    sql_Service = "ID, Number,Type,BeginTime,ServiceBodyID,Name,Body,Num,FromType,FromValue,UserID,UserName,ServiceID,ServiceName,ServicePhone,Address,State,EndUrl,OutUrl,UpTime,InTime ";
+                    sql_Service = ") VALUES (";
+                    sql_Service = "'{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '{6}', '{7}', '{8}', '{9}', '{10}', '{11}', '{12}', '{13}', '{14}', '{15}', '{16}', '{17}', '{18}', '{19}', '{20}', ";
+                    sql_Service = ")";
+
+                    ID = my_b.md5(my_b.get_bianhao());
+                    Number = my_b.get_bianhao();
+
+                    sql_Service = string.Format(sql_Service,"");
+                    //插入ServiceLable记录
+
+
+                    //插入ServiceLog记录
+
+
+                }
+                else
+                {
+                    msg = "订单主键 不能为空";
+                }
+
+
+            }
+            else
+            {
+                msg = "请登录后再操作";
+            }
+            #endregion
+
         }
         else
         {
