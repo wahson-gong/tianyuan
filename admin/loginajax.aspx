@@ -1,0 +1,1 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="loginajax.aspx.cs" Inherits="admin_login"  EnableViewStateMac="false"%>

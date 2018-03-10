@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html>
+<head id="Head1" runat="server">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>-->
+    <link rel="stylesheet" type="text/css" href="/admin/css/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="/admin/fonts/css/fontello.css" />
+    <link rel="stylesheet" type="text/css" href="/admin/css/components.css" />
+    <link rel="stylesheet" type="text/css" href="/admin/css/common.css" />
+    <!--[if lt IE 8]>
+        <link rel="stylesheet" href="fonts/css/fontello-ie7.css">
+    <![endif]-->
+    <script src="/admin/js/jquery-1.11.2.min.js" type="text/javascript"></script>
+
+    <!--[if lt IE 9]>
+          <script src="js/html5shiv.min.js"></script>
+          <script src="js/respond.min.js"></script>
+        <![endif]-->
+
+    <title>规格管理</title>
+    <style type="text/css">
+        html, body {
+            background: transparent;
+        }
+    </style>
+
+</head>
+<body class="body-color">
+    <br /><br />
+
+    {if value1="{fzw:url:id/}" value2="" bi="=="}
+
+    {else}
+    {fzw:for:sql="select * from sl_guigecanshu where id={fzw:url:id/}" id="p1"}
+    <form id="form_guige">
+        <table class="table table-info cs-table">
+            <tr>
+                <th width="100">规格名称:</th>
+                <td><input type="text" class="input" value="{fzw:p1:biaoti/}" id="guige_name" name="biaoti" />&nbsp;<a href="javascript:tijiao();" class="btn btn-green">保存</a></td>
+            </tr>
+            <tr>
+                <th width="100">
+                    规格：
+                </th>
+                <td>
+                    <input type="text" class="input" placeholder="请输入规格，按回车键即可添加" id="input_addguige" /> <a href="javascript:addguige();" class="btn btn-green">添加</a>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td id="guigelist">
+                    {fzw:for:sql="select * from sl_guigecanshu where classid={fzw:p1:id/} order by id asc" id="p2"}
+                    <span class="wordspan"><em class="word" data-id='{fzw:p2:id/}'>{fzw:p2:biaoti/}</em><em class="remove ficon ficon-cancel"></em></span>
+                    {/fzw:for:sql}
+                </td>
+            </tr>
+        </table>
+    </form>
+    {/fzw:for:sql}
+    {/if}
+
+
+
+
+    <script src="/admin/js/wow.min.js" type="text/javascript"></script>
+    <script src="/admin/js/common.js" type="text/javascript"></script>
+    <script src="/inc/layer/layer.js"></script>
+    <script type="text/javascript">
+		var index = parent.layer.getFrameIndex(window.name);
+
+
+		$('#input_addguige').keydown(function(e){
+	if(e.keyCode==13){
+	   addguige($('#input_addguige').attr('data-id'));
+	}
+});
+
+
+$(document).on('click','.wordspan .remove',function(){
+	var _this = $(this);
+	removguige(_this);
+})
+
+function addguige() {
+
+	var box = $("#input_addguige");
+	var val = $.trim(box.val());
+	if(val==''){
+		layer.msg('请输入规格');
+		return false;
+	}
+
+	$.ajax({
+			type:"post",
+			url:"/Execution.aspx?t=guigecanshu&type=getid",
+			data: "classid={fzw:url:id/}&biaoti=" + encodeURIComponent(val),
+			async:false,
+			success:function(data){
+				console.log(data);
+				if(data!=''){
+					$("#guigelist").append("<span class=\"wordspan\"><em class=\"word\" data-id='"+ data +"'>"+ val +"</em><em class=\"remove ficon ficon-cancel\"></em></span>");
+				}
+
+				$('#input_addguige').val('');
+			}
+		});
+}
+
+function removguige(obj){
+	var id = obj.siblings(".word").attr('data-id');
+	$.ajax({
+			type:"post",
+			url:" /Execution.aspx?t=guigecanshu&type=del_noyonghuming&id=" + id,
+			async:false,
+			success:function(data){
+				obj.parents(".wordspan").remove();
+			}
+		});
+}
+
+		function tijiao(){
+			var formData = $("#form_guige").serialize();
+			$.ajax({
+			type:"post",
+			url:"/Execution.aspx?t=guigecanshu&type=edit&id={fzw:url:id/}",
+			data:formData,
+			async:false,
+			success:function(data){
+				parent.window.location.reload();
+				//parent.layer.close(index);
+			}
+			});
+
+		}
+    </script>
+</body>
+</html>

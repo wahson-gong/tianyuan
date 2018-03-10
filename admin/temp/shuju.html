@@ -1,0 +1,18 @@
+﻿{if value1="{fzw:sql="select count(id) as count_id from sl_order where chuli='否'" id="p1"}{fzw:p1:count_id/}{/fzw:sql}" value2="" bi="=="}{else}
+<dl>
+    <dd><a href="/admin/order_table.aspx?Model_id=51"><em class="ficon ficon-dingdan"></em> 订单</a>（<span id="cartcount_1">{fzw:sql="select count(id) as count_id from sl_order where chuli='否'" id="p1"}{fzw:p1:count_id/}{/fzw:sql}</span>）</dd>
+</dl>
+<audio controls="controls" id="audio1" style="display:none">
+    <source src="/admin/temp/sms.ogg" type="audio/ogg" />
+    <source src="/admin/temp/sms.mp3" type="audio/mpeg" />
+</audio>
+<script type="text/javascript">
+    var cartcount = parseFloat($("#cartcount_1").html()) ;
+    
+    if (parseFloat(cartcount) > 0)
+    {
+      //  document.getElementById("audio1").play();
+    }
+   
+    $("#cartcount").html(cartcount);
+</script>{/if}
