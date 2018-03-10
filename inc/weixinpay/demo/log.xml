@@ -1,0 +1,944 @@
+23:22:36 UnifiedOrder_pub createXml-xyz:<xml>
+  <openid><![CDATA[oYCFrv51IOBy6NDAqGanPGiCftOY]]></openid>
+  <body><![CDATA[终极购，订单号72942982]]></body>
+  <out_trade_no>72942982</out_trade_no>
+  <total_fee>8888800</total_fee>
+  <notify_url><![CDATA[http://888.wc178.com/inc/weixinpay/demo/notify_url.php]]></notify_url>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id>1366460802</mch_id>
+  <spbill_create_ip><![CDATA[183.131.161.135]]></spbill_create_ip>
+  <nonce_str><![CDATA[vfyfzpuh165fjg88oi0ox928epr910xg]]></nonce_str>
+  <sign><![CDATA[6A55D412D3E338CE8687E1525286E661]]></sign>
+</xml>
+23:22:36 Wxpay_client_pub postXml-xml:<xml>
+  <openid><![CDATA[oYCFrv51IOBy6NDAqGanPGiCftOY]]></openid>
+  <body><![CDATA[终极购，订单号72942982]]></body>
+  <out_trade_no>72942982</out_trade_no>
+  <total_fee>8888800</total_fee>
+  <notify_url><![CDATA[http://888.wc178.com/inc/weixinpay/demo/notify_url.php]]></notify_url>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id>1366460802</mch_id>
+  <spbill_create_ip><![CDATA[183.131.161.135]]></spbill_create_ip>
+  <nonce_str><![CDATA[vfyfzpuh165fjg88oi0ox928epr910xg]]></nonce_str>
+  <sign><![CDATA[6A55D412D3E338CE8687E1525286E661]]></sign>
+</xml>
+23:22:36 Common_util_pub postXmlCurl-xml:<xml>
+  <openid><![CDATA[oYCFrv51IOBy6NDAqGanPGiCftOY]]></openid>
+  <body><![CDATA[终极购，订单号72942982]]></body>
+  <out_trade_no>72942982</out_trade_no>
+  <total_fee>8888800</total_fee>
+  <notify_url><![CDATA[http://888.wc178.com/inc/weixinpay/demo/notify_url.php]]></notify_url>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id>1366460802</mch_id>
+  <spbill_create_ip><![CDATA[183.131.161.135]]></spbill_create_ip>
+  <nonce_str><![CDATA[vfyfzpuh165fjg88oi0ox928epr910xg]]></nonce_str>
+  <sign><![CDATA[6A55D412D3E338CE8687E1525286E661]]></sign>
+</xml>
+23:22:36 Common_util_pub postXmlCurl-url:https://api.mch.weixin.qq.com/pay/unifiedorder
+23:22:37 UnifiedOrder_pub createXml-xyz:<xml>
+  <openid><![CDATA[oYCFrv51IOBy6NDAqGanPGiCftOY]]></openid>
+  <body><![CDATA[终极购，订单号72942982]]></body>
+  <out_trade_no>72942982</out_trade_no>
+  <total_fee>8888800</total_fee>
+  <notify_url><![CDATA[http://888.wc178.com/inc/weixinpay/demo/notify_url.php]]></notify_url>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id>1366460802</mch_id>
+  <spbill_create_ip><![CDATA[183.131.161.135]]></spbill_create_ip>
+  <nonce_str><![CDATA[qgi4kh8y7chankd6dbbmm499es6eq1dn]]></nonce_str>
+  <sign><![CDATA[6A1A8E77EB19E0746BE135B691F3C3FC]]></sign>
+</xml>
+23:22:37 Wxpay_client_pub postXml-xml:<xml>
+  <openid><![CDATA[oYCFrv51IOBy6NDAqGanPGiCftOY]]></openid>
+  <body><![CDATA[终极购，订单号72942982]]></body>
+  <out_trade_no>72942982</out_trade_no>
+  <total_fee>8888800</total_fee>
+  <notify_url><![CDATA[http://888.wc178.com/inc/weixinpay/demo/notify_url.php]]></notify_url>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id>1366460802</mch_id>
+  <spbill_create_ip><![CDATA[183.131.161.135]]></spbill_create_ip>
+  <nonce_str><![CDATA[qgi4kh8y7chankd6dbbmm499es6eq1dn]]></nonce_str>
+  <sign><![CDATA[6A1A8E77EB19E0746BE135B691F3C3FC]]></sign>
+</xml>
+23:22:37 Common_util_pub postXmlCurl-xml:<xml>
+  <openid><![CDATA[oYCFrv51IOBy6NDAqGanPGiCftOY]]></openid>
+  <body><![CDATA[终极购，订单号72942982]]></body>
+  <out_trade_no>72942982</out_trade_no>
+  <total_fee>8888800</total_fee>
+  <notify_url><![CDATA[http://888.wc178.com/inc/weixinpay/demo/notify_url.php]]></notify_url>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id>1366460802</mch_id>
+  <spbill_create_ip><![CDATA[183.131.161.135]]></spbill_create_ip>
+  <nonce_str><![CDATA[qgi4kh8y7chankd6dbbmm499es6eq1dn]]></nonce_str>
+  <sign><![CDATA[6A1A8E77EB19E0746BE135B691F3C3FC]]></sign>
+</xml>
+23:22:37 Common_util_pub postXmlCurl-url:https://api.mch.weixin.qq.com/pay/unifiedorder
+23:22:37 Common_util_pub postXmlCurl-data:<xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <return_msg><![CDATA[OK]]></return_msg>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[Z0QexYcVe3FBhgjD]]></nonce_str>
+  <sign><![CDATA[41ACAA9FA1BF9C71F232846EC749DA0B]]></sign>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <prepay_id><![CDATA[wx2017072923223774cecb2a040471644998]]></prepay_id>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+</xml>
+23:22:37 xmlToArray:<xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <return_msg><![CDATA[OK]]></return_msg>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[Z0QexYcVe3FBhgjD]]></nonce_str>
+  <sign><![CDATA[41ACAA9FA1BF9C71F232846EC749DA0B]]></sign>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <prepay_id><![CDATA[wx2017072923223774cecb2a040471644998]]></prepay_id>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+</xml>
+23:22:37 prepay_id wx2017072923223774cecb2a040471644998
+23:22:37 jsApiParameters {"appId":"wx906f9ab407856a54","timeStamp":"1501341757","nonceStr":"4va01awhny7fmjf3ytsi26akoyg5b9k8","package":"prepay_id=wx2017072923223774cecb2a040471644998","signType":"MD5","paySign":"B955FB5DE78AE1D7E8054CC4FAD2D741"}
+23:22:37 Common_util_pub postXmlCurl-data:<xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <return_msg><![CDATA[OK]]></return_msg>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[hpstyWd1cKyngMJY]]></nonce_str>
+  <sign><![CDATA[8863B80B3BB34EAC71041AB229B71297]]></sign>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <prepay_id><![CDATA[wx2017072923223774cecb2a040947715069]]></prepay_id>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+</xml>
+23:22:37 xmlToArray:<xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <return_msg><![CDATA[OK]]></return_msg>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[hpstyWd1cKyngMJY]]></nonce_str>
+  <sign><![CDATA[8863B80B3BB34EAC71041AB229B71297]]></sign>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <prepay_id><![CDATA[wx2017072923223774cecb2a040947715069]]></prepay_id>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+</xml>
+23:22:37 prepay_id wx2017072923223774cecb2a040947715069
+23:22:37 jsApiParameters {"appId":"wx906f9ab407856a54","timeStamp":"1501341757","nonceStr":"an0kp3eo1mqx5li8z4yk9vh56gb8jkk0","package":"prepay_id=wx2017072923223774cecb2a040947715069","signType":"MD5","paySign":"3093640286E61B7F25EBB88D51BCF8BC"}
+23:23:04 UnifiedOrder_pub createXml-xyz:<xml>
+  <openid><![CDATA[oYCFrv51IOBy6NDAqGanPGiCftOY]]></openid>
+  <body><![CDATA[终极购，订单号72942983]]></body>
+  <out_trade_no>72942983</out_trade_no>
+  <total_fee>1</total_fee>
+  <notify_url><![CDATA[http://888.wc178.com/inc/weixinpay/demo/notify_url.php]]></notify_url>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id>1366460802</mch_id>
+  <spbill_create_ip><![CDATA[183.131.161.135]]></spbill_create_ip>
+  <nonce_str><![CDATA[z2psalpjxn4xqr935rhgl3dtjvi1k906]]></nonce_str>
+  <sign><![CDATA[DC7D29EA2197C52BC41D05932716C63E]]></sign>
+</xml>
+23:23:04 Wxpay_client_pub postXml-xml:<xml>
+  <openid><![CDATA[oYCFrv51IOBy6NDAqGanPGiCftOY]]></openid>
+  <body><![CDATA[终极购，订单号72942983]]></body>
+  <out_trade_no>72942983</out_trade_no>
+  <total_fee>1</total_fee>
+  <notify_url><![CDATA[http://888.wc178.com/inc/weixinpay/demo/notify_url.php]]></notify_url>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id>1366460802</mch_id>
+  <spbill_create_ip><![CDATA[183.131.161.135]]></spbill_create_ip>
+  <nonce_str><![CDATA[z2psalpjxn4xqr935rhgl3dtjvi1k906]]></nonce_str>
+  <sign><![CDATA[DC7D29EA2197C52BC41D05932716C63E]]></sign>
+</xml>
+23:23:04 Common_util_pub postXmlCurl-xml:<xml>
+  <openid><![CDATA[oYCFrv51IOBy6NDAqGanPGiCftOY]]></openid>
+  <body><![CDATA[终极购，订单号72942983]]></body>
+  <out_trade_no>72942983</out_trade_no>
+  <total_fee>1</total_fee>
+  <notify_url><![CDATA[http://888.wc178.com/inc/weixinpay/demo/notify_url.php]]></notify_url>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id>1366460802</mch_id>
+  <spbill_create_ip><![CDATA[183.131.161.135]]></spbill_create_ip>
+  <nonce_str><![CDATA[z2psalpjxn4xqr935rhgl3dtjvi1k906]]></nonce_str>
+  <sign><![CDATA[DC7D29EA2197C52BC41D05932716C63E]]></sign>
+</xml>
+23:23:04 Common_util_pub postXmlCurl-url:https://api.mch.weixin.qq.com/pay/unifiedorder
+23:23:04 Common_util_pub postXmlCurl-data:<xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <return_msg><![CDATA[OK]]></return_msg>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[GVF0yAJOa4o79QCo]]></nonce_str>
+  <sign><![CDATA[BBE46E7EC856CC25A4ADBC55D52B9DDE]]></sign>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <prepay_id><![CDATA[wx2017072923230521111faee20857593781]]></prepay_id>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+</xml>
+23:23:04 xmlToArray:<xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <return_msg><![CDATA[OK]]></return_msg>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[GVF0yAJOa4o79QCo]]></nonce_str>
+  <sign><![CDATA[BBE46E7EC856CC25A4ADBC55D52B9DDE]]></sign>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <prepay_id><![CDATA[wx2017072923230521111faee20857593781]]></prepay_id>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+</xml>
+23:23:04 prepay_id wx2017072923230521111faee20857593781
+23:23:04 jsApiParameters {"appId":"wx906f9ab407856a54","timeStamp":"1501341784","nonceStr":"dlao2291lt7qwd18mf44dyinlkmqg7ao","package":"prepay_id=wx2017072923230521111faee20857593781","signType":"MD5","paySign":"DA479B52356F206A2B07DFB2BBEBA8A7"}
+23:23:09 通用通知接口 xml <xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[1]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[z2psalpjxn4xqr935rhgl3dtjvi1k906]]></nonce_str>
+  <openid><![CDATA[oYCFrv51IOBy6NDAqGanPGiCftOY]]></openid>
+  <out_trade_no><![CDATA[72942983]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[4E29B84DD8A2EC6E2FD6A1D4811C9793]]></sign>
+  <time_end><![CDATA[20170729232308]]></time_end>
+  <total_fee>1</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4007192001201707293383396772]]></transaction_id>
+</xml>
+23:23:09 xmlToArray:<xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[1]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[z2psalpjxn4xqr935rhgl3dtjvi1k906]]></nonce_str>
+  <openid><![CDATA[oYCFrv51IOBy6NDAqGanPGiCftOY]]></openid>
+  <out_trade_no><![CDATA[72942983]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[4E29B84DD8A2EC6E2FD6A1D4811C9793]]></sign>
+  <time_end><![CDATA[20170729232308]]></time_end>
+  <total_fee>1</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4007192001201707293383396772]]></transaction_id>
+</xml>
+23:23:09 returnXml xml <xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+</xml>
+23:23:24 通用通知接口 xml <xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[1]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[z2psalpjxn4xqr935rhgl3dtjvi1k906]]></nonce_str>
+  <openid><![CDATA[oYCFrv51IOBy6NDAqGanPGiCftOY]]></openid>
+  <out_trade_no><![CDATA[72942983]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[4E29B84DD8A2EC6E2FD6A1D4811C9793]]></sign>
+  <time_end><![CDATA[20170729232308]]></time_end>
+  <total_fee>1</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4007192001201707293383396772]]></transaction_id>
+</xml>
+23:23:24 xmlToArray:<xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[1]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[z2psalpjxn4xqr935rhgl3dtjvi1k906]]></nonce_str>
+  <openid><![CDATA[oYCFrv51IOBy6NDAqGanPGiCftOY]]></openid>
+  <out_trade_no><![CDATA[72942983]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[4E29B84DD8A2EC6E2FD6A1D4811C9793]]></sign>
+  <time_end><![CDATA[20170729232308]]></time_end>
+  <total_fee>1</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4007192001201707293383396772]]></transaction_id>
+</xml>
+23:23:24 returnXml xml <xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+</xml>
+23:23:41 通用通知接口 xml <xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[1]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[z2psalpjxn4xqr935rhgl3dtjvi1k906]]></nonce_str>
+  <openid><![CDATA[oYCFrv51IOBy6NDAqGanPGiCftOY]]></openid>
+  <out_trade_no><![CDATA[72942983]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[4E29B84DD8A2EC6E2FD6A1D4811C9793]]></sign>
+  <time_end><![CDATA[20170729232308]]></time_end>
+  <total_fee>1</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4007192001201707293383396772]]></transaction_id>
+</xml>
+23:23:41 xmlToArray:<xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[1]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[z2psalpjxn4xqr935rhgl3dtjvi1k906]]></nonce_str>
+  <openid><![CDATA[oYCFrv51IOBy6NDAqGanPGiCftOY]]></openid>
+  <out_trade_no><![CDATA[72942983]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[4E29B84DD8A2EC6E2FD6A1D4811C9793]]></sign>
+  <time_end><![CDATA[20170729232308]]></time_end>
+  <total_fee>1</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4007192001201707293383396772]]></transaction_id>
+</xml>
+23:23:41 returnXml xml <xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+</xml>
+23:24:11 UnifiedOrder_pub createXml-xyz:<xml>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <body><![CDATA[终极购，订单号72942984]]></body>
+  <out_trade_no>72942984</out_trade_no>
+  <total_fee>50</total_fee>
+  <notify_url><![CDATA[http://888.wc178.com/inc/weixinpay/demo/notify_url.php]]></notify_url>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id>1366460802</mch_id>
+  <spbill_create_ip><![CDATA[182.129.172.83]]></spbill_create_ip>
+  <nonce_str><![CDATA[4ucewv4lyboi07q0imi0e6xt5kdd5t5f]]></nonce_str>
+  <sign><![CDATA[A40228AF39B482FDEEDF44BB66A41DAD]]></sign>
+</xml>
+23:24:11 Wxpay_client_pub postXml-xml:<xml>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <body><![CDATA[终极购，订单号72942984]]></body>
+  <out_trade_no>72942984</out_trade_no>
+  <total_fee>50</total_fee>
+  <notify_url><![CDATA[http://888.wc178.com/inc/weixinpay/demo/notify_url.php]]></notify_url>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id>1366460802</mch_id>
+  <spbill_create_ip><![CDATA[182.129.172.83]]></spbill_create_ip>
+  <nonce_str><![CDATA[4ucewv4lyboi07q0imi0e6xt5kdd5t5f]]></nonce_str>
+  <sign><![CDATA[A40228AF39B482FDEEDF44BB66A41DAD]]></sign>
+</xml>
+23:24:11 Common_util_pub postXmlCurl-xml:<xml>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <body><![CDATA[终极购，订单号72942984]]></body>
+  <out_trade_no>72942984</out_trade_no>
+  <total_fee>50</total_fee>
+  <notify_url><![CDATA[http://888.wc178.com/inc/weixinpay/demo/notify_url.php]]></notify_url>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id>1366460802</mch_id>
+  <spbill_create_ip><![CDATA[182.129.172.83]]></spbill_create_ip>
+  <nonce_str><![CDATA[4ucewv4lyboi07q0imi0e6xt5kdd5t5f]]></nonce_str>
+  <sign><![CDATA[A40228AF39B482FDEEDF44BB66A41DAD]]></sign>
+</xml>
+23:24:11 Common_util_pub postXmlCurl-url:https://api.mch.weixin.qq.com/pay/unifiedorder
+23:24:11 Common_util_pub postXmlCurl-data:<xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <return_msg><![CDATA[OK]]></return_msg>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[f6X2gG4yVX3WCEZr]]></nonce_str>
+  <sign><![CDATA[FF35F523334C3B5E61ADD90383629983]]></sign>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <prepay_id><![CDATA[wx20170729232412f737b763b60207255480]]></prepay_id>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+</xml>
+23:24:11 xmlToArray:<xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <return_msg><![CDATA[OK]]></return_msg>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[f6X2gG4yVX3WCEZr]]></nonce_str>
+  <sign><![CDATA[FF35F523334C3B5E61ADD90383629983]]></sign>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <prepay_id><![CDATA[wx20170729232412f737b763b60207255480]]></prepay_id>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+</xml>
+23:24:11 prepay_id wx20170729232412f737b763b60207255480
+23:24:11 jsApiParameters {"appId":"wx906f9ab407856a54","timeStamp":"1501341851","nonceStr":"7dizdphpqj717qymwmop9quqlhgqhzwg","package":"prepay_id=wx20170729232412f737b763b60207255480","signType":"MD5","paySign":"11B415624E08ADDAB226FCF79AFA2981"}
+23:24:12 通用通知接口 xml <xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[1]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[z2psalpjxn4xqr935rhgl3dtjvi1k906]]></nonce_str>
+  <openid><![CDATA[oYCFrv51IOBy6NDAqGanPGiCftOY]]></openid>
+  <out_trade_no><![CDATA[72942983]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[4E29B84DD8A2EC6E2FD6A1D4811C9793]]></sign>
+  <time_end><![CDATA[20170729232308]]></time_end>
+  <total_fee>1</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4007192001201707293383396772]]></transaction_id>
+</xml>
+23:24:12 xmlToArray:<xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[1]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[z2psalpjxn4xqr935rhgl3dtjvi1k906]]></nonce_str>
+  <openid><![CDATA[oYCFrv51IOBy6NDAqGanPGiCftOY]]></openid>
+  <out_trade_no><![CDATA[72942983]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[4E29B84DD8A2EC6E2FD6A1D4811C9793]]></sign>
+  <time_end><![CDATA[20170729232308]]></time_end>
+  <total_fee>1</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4007192001201707293383396772]]></transaction_id>
+</xml>
+23:24:12 returnXml xml <xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+</xml>
+23:24:19 通用通知接口 xml <xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[50]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[4ucewv4lyboi07q0imi0e6xt5kdd5t5f]]></nonce_str>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <out_trade_no><![CDATA[72942984]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[F90D9DFF531F057A0EAD8A4CF1FCB9DD]]></sign>
+  <time_end><![CDATA[20170729232419]]></time_end>
+  <total_fee>50</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4001502001201707293381484329]]></transaction_id>
+</xml>
+23:24:19 xmlToArray:<xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[50]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[4ucewv4lyboi07q0imi0e6xt5kdd5t5f]]></nonce_str>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <out_trade_no><![CDATA[72942984]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[F90D9DFF531F057A0EAD8A4CF1FCB9DD]]></sign>
+  <time_end><![CDATA[20170729232419]]></time_end>
+  <total_fee>50</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4001502001201707293381484329]]></transaction_id>
+</xml>
+23:24:19 returnXml xml <xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+</xml>
+23:24:36 通用通知接口 xml <xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[50]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[4ucewv4lyboi07q0imi0e6xt5kdd5t5f]]></nonce_str>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <out_trade_no><![CDATA[72942984]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[F90D9DFF531F057A0EAD8A4CF1FCB9DD]]></sign>
+  <time_end><![CDATA[20170729232419]]></time_end>
+  <total_fee>50</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4001502001201707293381484329]]></transaction_id>
+</xml>
+23:24:36 xmlToArray:<xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[50]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[4ucewv4lyboi07q0imi0e6xt5kdd5t5f]]></nonce_str>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <out_trade_no><![CDATA[72942984]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[F90D9DFF531F057A0EAD8A4CF1FCB9DD]]></sign>
+  <time_end><![CDATA[20170729232419]]></time_end>
+  <total_fee>50</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4001502001201707293381484329]]></transaction_id>
+</xml>
+23:24:36 returnXml xml <xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+</xml>
+23:24:53 通用通知接口 xml <xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[50]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[4ucewv4lyboi07q0imi0e6xt5kdd5t5f]]></nonce_str>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <out_trade_no><![CDATA[72942984]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[F90D9DFF531F057A0EAD8A4CF1FCB9DD]]></sign>
+  <time_end><![CDATA[20170729232419]]></time_end>
+  <total_fee>50</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4001502001201707293381484329]]></transaction_id>
+</xml>
+23:24:53 xmlToArray:<xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[50]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[4ucewv4lyboi07q0imi0e6xt5kdd5t5f]]></nonce_str>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <out_trade_no><![CDATA[72942984]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[F90D9DFF531F057A0EAD8A4CF1FCB9DD]]></sign>
+  <time_end><![CDATA[20170729232419]]></time_end>
+  <total_fee>50</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4001502001201707293381484329]]></transaction_id>
+</xml>
+23:24:53 returnXml xml <xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+</xml>
+23:25:26 通用通知接口 xml <xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[50]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[4ucewv4lyboi07q0imi0e6xt5kdd5t5f]]></nonce_str>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <out_trade_no><![CDATA[72942984]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[F90D9DFF531F057A0EAD8A4CF1FCB9DD]]></sign>
+  <time_end><![CDATA[20170729232419]]></time_end>
+  <total_fee>50</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4001502001201707293381484329]]></transaction_id>
+</xml>
+23:25:26 xmlToArray:<xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[50]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[4ucewv4lyboi07q0imi0e6xt5kdd5t5f]]></nonce_str>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <out_trade_no><![CDATA[72942984]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[F90D9DFF531F057A0EAD8A4CF1FCB9DD]]></sign>
+  <time_end><![CDATA[20170729232419]]></time_end>
+  <total_fee>50</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4001502001201707293381484329]]></transaction_id>
+</xml>
+23:25:26 returnXml xml <xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+</xml>
+23:25:59 UnifiedOrder_pub createXml-xyz:<xml>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <body><![CDATA[终极购，订单号72942987]]></body>
+  <out_trade_no>72942987</out_trade_no>
+  <total_fee>590</total_fee>
+  <notify_url><![CDATA[http://888.wc178.com/inc/weixinpay/demo/notify_url.php]]></notify_url>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id>1366460802</mch_id>
+  <spbill_create_ip><![CDATA[182.129.172.83]]></spbill_create_ip>
+  <nonce_str><![CDATA[4r7fa608bswriirfphzl90as9oseoixg]]></nonce_str>
+  <sign><![CDATA[5034AEB68AEA43E37D2C8C45BC5BAF64]]></sign>
+</xml>
+23:25:59 Wxpay_client_pub postXml-xml:<xml>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <body><![CDATA[终极购，订单号72942987]]></body>
+  <out_trade_no>72942987</out_trade_no>
+  <total_fee>590</total_fee>
+  <notify_url><![CDATA[http://888.wc178.com/inc/weixinpay/demo/notify_url.php]]></notify_url>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id>1366460802</mch_id>
+  <spbill_create_ip><![CDATA[182.129.172.83]]></spbill_create_ip>
+  <nonce_str><![CDATA[4r7fa608bswriirfphzl90as9oseoixg]]></nonce_str>
+  <sign><![CDATA[5034AEB68AEA43E37D2C8C45BC5BAF64]]></sign>
+</xml>
+23:25:59 Common_util_pub postXmlCurl-xml:<xml>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <body><![CDATA[终极购，订单号72942987]]></body>
+  <out_trade_no>72942987</out_trade_no>
+  <total_fee>590</total_fee>
+  <notify_url><![CDATA[http://888.wc178.com/inc/weixinpay/demo/notify_url.php]]></notify_url>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id>1366460802</mch_id>
+  <spbill_create_ip><![CDATA[182.129.172.83]]></spbill_create_ip>
+  <nonce_str><![CDATA[4r7fa608bswriirfphzl90as9oseoixg]]></nonce_str>
+  <sign><![CDATA[5034AEB68AEA43E37D2C8C45BC5BAF64]]></sign>
+</xml>
+23:25:59 Common_util_pub postXmlCurl-url:https://api.mch.weixin.qq.com/pay/unifiedorder
+23:25:59 Common_util_pub postXmlCurl-data:<xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <return_msg><![CDATA[OK]]></return_msg>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[aJD1AWbRL0PCz9vM]]></nonce_str>
+  <sign><![CDATA[27DB53436DC7570330C3F00D747B0357]]></sign>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <prepay_id><![CDATA[wx20170729232600a7e0c22e220147624826]]></prepay_id>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+</xml>
+23:25:59 xmlToArray:<xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <return_msg><![CDATA[OK]]></return_msg>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[aJD1AWbRL0PCz9vM]]></nonce_str>
+  <sign><![CDATA[27DB53436DC7570330C3F00D747B0357]]></sign>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <prepay_id><![CDATA[wx20170729232600a7e0c22e220147624826]]></prepay_id>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+</xml>
+23:25:59 prepay_id wx20170729232600a7e0c22e220147624826
+23:25:59 jsApiParameters {"appId":"wx906f9ab407856a54","timeStamp":"1501341959","nonceStr":"j32d6qh4yucwojolxiik668pk24wn94g","package":"prepay_id=wx20170729232600a7e0c22e220147624826","signType":"MD5","paySign":"C54EE90F62A54F4C36F95E1E771A6DDF"}
+23:26:07 通用通知接口 xml <xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[590]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[4r7fa608bswriirfphzl90as9oseoixg]]></nonce_str>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <out_trade_no><![CDATA[72942987]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[FC516E35F0471252976853A8EA0369E8]]></sign>
+  <time_end><![CDATA[20170729232607]]></time_end>
+  <total_fee>590</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4001502001201707293385348418]]></transaction_id>
+</xml>
+23:26:07 xmlToArray:<xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[590]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[4r7fa608bswriirfphzl90as9oseoixg]]></nonce_str>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <out_trade_no><![CDATA[72942987]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[FC516E35F0471252976853A8EA0369E8]]></sign>
+  <time_end><![CDATA[20170729232607]]></time_end>
+  <total_fee>590</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4001502001201707293385348418]]></transaction_id>
+</xml>
+23:26:07 returnXml xml <xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+</xml>
+23:26:20 通用通知接口 xml <xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[590]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[4r7fa608bswriirfphzl90as9oseoixg]]></nonce_str>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <out_trade_no><![CDATA[72942987]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[FC516E35F0471252976853A8EA0369E8]]></sign>
+  <time_end><![CDATA[20170729232607]]></time_end>
+  <total_fee>590</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4001502001201707293385348418]]></transaction_id>
+</xml>
+23:26:20 xmlToArray:<xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[590]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[4r7fa608bswriirfphzl90as9oseoixg]]></nonce_str>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <out_trade_no><![CDATA[72942987]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[FC516E35F0471252976853A8EA0369E8]]></sign>
+  <time_end><![CDATA[20170729232607]]></time_end>
+  <total_fee>590</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4001502001201707293385348418]]></transaction_id>
+</xml>
+23:26:20 returnXml xml <xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+</xml>
+23:26:38 通用通知接口 xml <xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[590]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[4r7fa608bswriirfphzl90as9oseoixg]]></nonce_str>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <out_trade_no><![CDATA[72942987]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[FC516E35F0471252976853A8EA0369E8]]></sign>
+  <time_end><![CDATA[20170729232607]]></time_end>
+  <total_fee>590</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4001502001201707293385348418]]></transaction_id>
+</xml>
+23:26:38 xmlToArray:<xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[590]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[4r7fa608bswriirfphzl90as9oseoixg]]></nonce_str>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <out_trade_no><![CDATA[72942987]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[FC516E35F0471252976853A8EA0369E8]]></sign>
+  <time_end><![CDATA[20170729232607]]></time_end>
+  <total_fee>590</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4001502001201707293385348418]]></transaction_id>
+</xml>
+23:26:38 returnXml xml <xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+</xml>
+23:27:11 通用通知接口 xml <xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[590]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[4r7fa608bswriirfphzl90as9oseoixg]]></nonce_str>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <out_trade_no><![CDATA[72942987]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[FC516E35F0471252976853A8EA0369E8]]></sign>
+  <time_end><![CDATA[20170729232607]]></time_end>
+  <total_fee>590</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4001502001201707293385348418]]></transaction_id>
+</xml>
+23:27:11 xmlToArray:<xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[590]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[4r7fa608bswriirfphzl90as9oseoixg]]></nonce_str>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <out_trade_no><![CDATA[72942987]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[FC516E35F0471252976853A8EA0369E8]]></sign>
+  <time_end><![CDATA[20170729232607]]></time_end>
+  <total_fee>590</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4001502001201707293385348418]]></transaction_id>
+</xml>
+23:27:11 returnXml xml <xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+</xml>
+23:27:14 通用通知接口 xml <xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[1]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[z2psalpjxn4xqr935rhgl3dtjvi1k906]]></nonce_str>
+  <openid><![CDATA[oYCFrv51IOBy6NDAqGanPGiCftOY]]></openid>
+  <out_trade_no><![CDATA[72942983]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[4E29B84DD8A2EC6E2FD6A1D4811C9793]]></sign>
+  <time_end><![CDATA[20170729232308]]></time_end>
+  <total_fee>1</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4007192001201707293383396772]]></transaction_id>
+</xml>
+23:27:14 xmlToArray:<xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[1]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[z2psalpjxn4xqr935rhgl3dtjvi1k906]]></nonce_str>
+  <openid><![CDATA[oYCFrv51IOBy6NDAqGanPGiCftOY]]></openid>
+  <out_trade_no><![CDATA[72942983]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[4E29B84DD8A2EC6E2FD6A1D4811C9793]]></sign>
+  <time_end><![CDATA[20170729232308]]></time_end>
+  <total_fee>1</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4007192001201707293383396772]]></transaction_id>
+</xml>
+23:27:14 returnXml xml <xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+</xml>
+23:28:28 通用通知接口 xml <xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[50]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[4ucewv4lyboi07q0imi0e6xt5kdd5t5f]]></nonce_str>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <out_trade_no><![CDATA[72942984]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[F90D9DFF531F057A0EAD8A4CF1FCB9DD]]></sign>
+  <time_end><![CDATA[20170729232419]]></time_end>
+  <total_fee>50</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4001502001201707293381484329]]></transaction_id>
+</xml>
+23:28:28 xmlToArray:<xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[50]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[4ucewv4lyboi07q0imi0e6xt5kdd5t5f]]></nonce_str>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <out_trade_no><![CDATA[72942984]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[F90D9DFF531F057A0EAD8A4CF1FCB9DD]]></sign>
+  <time_end><![CDATA[20170729232419]]></time_end>
+  <total_fee>50</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4001502001201707293381484329]]></transaction_id>
+</xml>
+23:28:28 returnXml xml <xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+</xml>
+23:30:13 通用通知接口 xml <xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[590]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[4r7fa608bswriirfphzl90as9oseoixg]]></nonce_str>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <out_trade_no><![CDATA[72942987]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[FC516E35F0471252976853A8EA0369E8]]></sign>
+  <time_end><![CDATA[20170729232607]]></time_end>
+  <total_fee>590</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4001502001201707293385348418]]></transaction_id>
+</xml>
+23:30:13 xmlToArray:<xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[590]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[4r7fa608bswriirfphzl90as9oseoixg]]></nonce_str>
+  <openid><![CDATA[oYCFrv2oM6amx1A_bfL4IsGpLZLs]]></openid>
+  <out_trade_no><![CDATA[72942987]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[FC516E35F0471252976853A8EA0369E8]]></sign>
+  <time_end><![CDATA[20170729232607]]></time_end>
+  <total_fee>590</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4001502001201707293385348418]]></transaction_id>
+</xml>
+23:30:13 returnXml xml <xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+</xml>
+23:31:25 通用通知接口 xml <xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[10000]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[eqhejoo67r36br6136srpvivm6zlboag]]></nonce_str>
+  <openid><![CDATA[oYCFrv__pI1QOIB3zLhc9DG-wEMQ]]></openid>
+  <out_trade_no><![CDATA[72942968]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[2EF09A59FD4D71C9B91AFCF2EF88E085]]></sign>
+  <time_end><![CDATA[20170729222718]]></time_end>
+  <total_fee>10000</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4004592001201707293371661886]]></transaction_id>
+</xml>
+23:31:25 xmlToArray:<xml>
+  <appid><![CDATA[wx906f9ab407856a54]]></appid>
+  <bank_type><![CDATA[CFT]]></bank_type>
+  <cash_fee><![CDATA[10000]]></cash_fee>
+  <fee_type><![CDATA[CNY]]></fee_type>
+  <is_subscribe><![CDATA[Y]]></is_subscribe>
+  <mch_id><![CDATA[1366460802]]></mch_id>
+  <nonce_str><![CDATA[eqhejoo67r36br6136srpvivm6zlboag]]></nonce_str>
+  <openid><![CDATA[oYCFrv__pI1QOIB3zLhc9DG-wEMQ]]></openid>
+  <out_trade_no><![CDATA[72942968]]></out_trade_no>
+  <result_code><![CDATA[SUCCESS]]></result_code>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+  <sign><![CDATA[2EF09A59FD4D71C9B91AFCF2EF88E085]]></sign>
+  <time_end><![CDATA[20170729222718]]></time_end>
+  <total_fee>10000</total_fee>
+  <trade_type><![CDATA[JSAPI]]></trade_type>
+  <transaction_id><![CDATA[4004592001201707293371661886]]></transaction_id>
+</xml>
+23:31:25 returnXml xml <xml>
+  <return_code><![CDATA[SUCCESS]]></return_code>
+</xml>

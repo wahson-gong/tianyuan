@@ -1,0 +1,17 @@
+<script language="javascript" src="/upfile/data/hexunLoadMedia.js"></script>
+<script language="javascript">
+	var pics='$imgs$';
+	var mylinks='$urls$';
+	var texts='$titles$';
+	var _str='/upfile/data/imageview2.swf';
+		// ¸ß¿í
+		var ivWidth=$width$;
+		var ivHeight=$height$;
+		// ¸ß¿í½áÊø
+		_str+='?Width='+ivWidth;
+		_str+='&Height='+ivHeight;
+		_str+='&Titles='+encodeURI(texts);
+		_str+='&ImgUrls='+pics;
+		_str+='&LinkUrls='+mylinks;
+	creatHexunFlashObject(_str,ivWidth,ivHeight);
+</script>

@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<All>
+  <User>
+    <!--用户新增Url-->
+    <AddUrl Text="http://test3.thishttp.com/Show/AddUser.aspx" />
+    <!--登陆跳转Url-->
+    <InUrl Text="http://test1.thishttp.com/" />
+  </User>
+  <Url>
+    <!--返回跳转Url-->
+    <Out Text="http://test1.thishttp.com/UserHome1.html" />
+  </Url>
+  <Img>
+    <!--二维码图片存放地址-->
+    <FileReCode Text="D:\天源 TO IIS\天源商城\天源商城_凭据_tycredential_cqtyrl_com\File\Img\" />
+    <!--二维码图片存放Url地址-->
+    <UrlReCode Text="http://test9.thishttp.com/File/Img/" />
+    <!--二维码图片指向Url地址（{ReCode}会被替换为二维码值）-->
+    <ReCodeToUrl Text="http://test1.thishttp.com/indexf.aspx?Ticket={ReCode}" />
+  </Img>
+  <TicketAdmin>
+    <!--凭据使用员-->
+    <IDs Text="管理员ID1,管理员ID2,beb8f292-90b7-4aa5-9e92-017626fe93a6,08701d18-4d17-4154-8bac-9d9e214347ad,2f234c91-c7c8-40d0-beb1-a3ab3f000c52,6c82a600-7e63-4691-ab26-137623138ab0" />
+    <!--凭据使用员加入密码-->
+    <PassWord Text="ea3bf9c3c3584f83a4b0a423eea8a34e" />
+    <!--凭据使用员加入二维码值（{ReCode}将会被替换为凭据使用员加入密码）-->
+    <ReCode Text="http://test19.thishttp.com/indexf.aspx?TicketAdmin={ReCode}" />
+    <!--凭据使用员加入二维码图片-->
+    <ReCodeImg Text="76b1f3e2-783b-4eb1-a346-da354b97b5ed.gif" />
+  </TicketAdmin>
+  <Pro>
+    <!--程序后台密码-->
+    <PassWord Text="73bd3acc-541b-4fd2-ae0b-f565754f34eb" />
+    <!--程序名称-->
+    <FromName Text="天源凭据管理项目" />
+  </Pro>
+  <Send>
+    <!--凭据失效通知（{Number}凭据编号,{Name}凭据名称）-->
+    <!--<TicketOut Text="您的{Name}（{Number}）已经使用" />-->
+    <TicketOut Text="" />
+  </Send>
+  <Ticket>
+    <!--订单末位编号-->
+    <Num Text="6935" />
+    <!--凭据编号头-->
+    <Head Text="TI" />
+  </Ticket>
+</All>

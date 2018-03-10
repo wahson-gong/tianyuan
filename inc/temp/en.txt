@@ -1,0 +1,1 @@
+﻿<A class="pagelist_prev" href="{pagelist:pgup_link}"></A><A class="pagelist_next" href="{pagelist:pgdn_link}"></A>

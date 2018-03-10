@@ -1,0 +1,27 @@
+﻿ {
+           "touser":"{fzw:database:openid/}",
+           "template_id":"BPaCJ13V1-UJ8pBUH-nbtgiWho0BLriMm2_ctyizQvk",
+           "url":"http://www.sihaiqh.com/search.aspx?m=user_caiwu",            
+           "data":{
+				 "first": {
+                       "value":"尊敬的客户您好，您支付订单：{fzw:database:dingdanhao/}成功，信息如下：",
+					   "color":"#173177"
+                   },
+                   "keyword1": {
+                       "value":"{fzw:database:dtime/}",
+					   "color":"#173177"
+                   },
+                   "keyword2":{
+                       "value":"{fzw:database:jine/}元",
+					   "color":"#173177"
+                   },
+                   "keyword3": {
+                       "value":"{fzw:database:jine_count/}元",
+					   "color":"#173177"
+                   },
+                   "remark":{
+                       "value":"此信息非扣款后实时发送，仅供参考",
+                       "color":"#173177"
+                   }
+           }
+       }

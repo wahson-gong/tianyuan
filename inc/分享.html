@@ -1,0 +1,94 @@
+﻿{if value1="{fzw:cookie name="signature" /}" value2="" bi="=="}}{else}
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+       wx.config({
+           debug: false,
+           appId: '{fzw:cookie name="appId" /}',
+           timestamp: '{fzw:cookie name="timestamp" /}',
+           nonceStr: '{fzw:cookie name="nonceStr" /}',
+           signature: '{fzw:cookie name="signature" /}',
+           jsApiList: [
+        'checkJsApi',
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ',
+        'onMenuShareWeibo',
+        'hideMenuItems',
+        'showMenuItems',
+        'hideAllNonBaseMenuItem',
+        'showAllNonBaseMenuItem',
+        'translateVoice',
+        'startRecord',
+        'stopRecord',
+        'onRecordEnd',
+        'playVoice',
+        'pauseVoice',
+        'stopVoice',
+        'uploadVoice',
+        'downloadVoice',
+        'chooseImage',
+        'previewImage',
+        'uploadImage',
+        'downloadImage',
+        'getNetworkType',
+        'openLocation',
+        'getLocation',
+        'hideOptionMenu',
+        'showOptionMenu',
+        'closeWindow',
+        'scanQRCode',
+        'chooseWXPay',
+        'openProductSpecificView',
+        'addCard',
+        'chooseCard',
+        'openCard'
+      ]
+       });
+
+
+</script>
+{fzw:sql="select * from sl_fenxiang" id="p1"}
+<script type="text/javascript">
+        wx.ready(function () {
+            wx.onMenuShareAppMessage({
+                title: '{fzw:p1:biaoti/}',
+                desc: '{fzw:p1:miaoshu/}',
+                link: '{fzw:p1:lianjie/}',
+                imgUrl: '{fzw:p1:biaozhi/}',
+                trigger: function (res) {
+                },
+                success: function (res) {
+                    friendcallback(res);
+                },
+                cancel: function (res) {
+                },
+                fail: function (res) {
+                    alert(JSON.stringify(res));
+                }
+            });
+
+            wx.onMenuShareTimeline({
+                title: '{fzw:p1:biaoti/}',
+                desc: '{fzw:p1:miaoshu/}',
+                link: '{fzw:p1:lianjie/}',
+                imgUrl: '{fzw:p1:biaozhi/}',
+                trigger: function (res) {
+                },
+                success: function (res) {
+                    friendcallback(res);
+                },
+                cancel: function (res) {
+                },
+                fail: function (res) {
+                    alert(JSON.stringify(res));
+                }
+            });
+        });
+
+        wx.error(function(res){
+            alert(res);
+            // config信息验证失败会执行error函数，如签名过期导致验证失败，具体错误信息可以打开config的debug模式查看，也可以在返回的res参数中查看，对于SPA可以在这里更新签名。
+        });
+</script>
+{/fzw:sql}
+{/if}

@@ -724,7 +724,7 @@ public partial class Execution : System.Web.UI.Page
                     //发送验证码    
                     //Response.Write("https://" + Request.ServerVariables["SERVER_NAME"] + "/Execution.aspx?t=fasong&&leixingbiaoti=登录&&type=shouji_yzm&&shouji=" + Phone);
                     //Response.End();
-                    msg = my_b.getWebFile1("https://" + Request.ServerVariables["SERVER_NAME"] + "/Execution.aspx?t=fasong&&leixingbiaoti=登录&&type=shouji_yzm&&shouji=" + Phone);
+                    msg = my_b.getWebFile1("https://" + Request.ServerVariables["SERVER_NAME"] + "/Execution.aspx?t=fasong&leixingbiaoti=登录&type=shouji_yzm&shouji=" + Phone);
 
                     status = "true";
                     msg = "短信已发送";
@@ -1839,7 +1839,7 @@ public partial class Execution : System.Web.UI.Page
                  lat2 = double.Parse(dt_peisongdian.Rows[0]["Latitude"].ToString());
                  lng2 = double.Parse(dt_peisongdian.Rows[0]["Longitude"].ToString());
                  double temp_distance = this.GetDistance(lat1, lng1, lat2, lng2);
-                  
+                 //Response.Write(temp_distance);
                  if (temp_distance > peisongyichangjuli)
                  {
                      //写入配送异常数据表
@@ -1848,14 +1848,21 @@ public partial class Execution : System.Web.UI.Page
                      string sql_service = "select *  from Service where FromValue='" + dt_Order.Rows[0]["id"].ToString() + "' ";
                      DataTable dt_service = my_c.GetTable(sql_service, "sql_conn7");
                      peisongyuan = dt_service.Rows[0]["ServiceID"].ToString();
+                     //peisongyuan = this.getUserid();
                      dingdanhao = dt_Order.Rows[0]["id"].ToString();
                      caozuoweizhi = Long + "," + Lat;
                      zhixianjuli = temp_distance.ToString();
                      string sql_peisongyichangrizhi = "insert into  sl_peisongyichangrizhi (peisongyuan,dingdanhao,caozuoweizhi,zhixianjuli) values('" + peisongyuan + "','" + peisongyuan + "','" + caozuoweizhi + "','" + zhixianjuli + "')";
                      my_c.genxin(sql_peisongyichangrizhi);
+                     status = "true";
+                     msg = "操作成功,以记录当前位置信息" + temp_distance.ToString();
                  }
-                 status = "true";
-                 msg = "操作成功";
+                 else
+                 {
+                     status = "true";
+                     msg = "操作成功";
+                 }
+                 
 
              }
              else
@@ -2297,7 +2304,7 @@ public partial class Execution : System.Web.UI.Page
          Math.Cos(radLat1) * Math.Cos(radLat2) * Math.Pow(Math.Sin(b / 2), 2)));
         s = s * EARTH_RADIUS;
         s = Math.Round(s * 10000) / 10000;
-        return s;
+        return s*1000;
     } 
     #endregion
    

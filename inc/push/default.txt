@@ -1,0 +1,16 @@
+﻿ {
+           "touser":"{fzw:url:openid/}",
+           "template_id":"{fzw:database:template_id/}",
+           "url":"{fzw:url:lianjie/}",            
+           "data":{
+				 "first": {
+                       "value":"{fzw:url:first/}",
+					   "color":"#173177"
+                   },
+                   {keyword}
+                   "remark":{
+                       "value":"{fzw:url:remark/}",
+                       "color":"#173177"
+                   }
+           }
+       }

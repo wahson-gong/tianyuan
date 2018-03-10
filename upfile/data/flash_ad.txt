@@ -1,0 +1,34 @@
+<SCRIPT src="/upfile/data/swfobject_source.js" type="text/javascript"></SCRIPT>
+
+<DIV id="dplayer2" style="PADDING-RIGHT: 0px; PADDING-LEFT: 0px; BACKGROUND: #ffffff; PADDING-BOTTOM: 0px; MARGIN: 0px auto; WIDTH: $width$px; PADDING-TOP: 0px; HEIGHT: $height$px"></DIV>
+
+<SCRIPT language="javascript" type="text/javascript">
+var titles = '$titles$';
+var imgs='$imgs$';
+var urls='$urls$';
+var pw = $width$;
+var ph = $height$;
+var sizes = 14;
+var Times = 4000;
+var umcolor = 0xFFFFFF;
+var btnbg =0xFF7E00;
+var txtcolor =0xFFFFFF;
+var txtoutcolor = 0x000000;
+var flash = new SWFObject('/upfile/data/focus.swf', 'mymovie', pw, ph, '7', '');
+flash.addParam('allowFullScreen', 'true');
+flash.addParam('allowScriptAccess', 'always');
+flash.addParam('quality', 'high');
+flash.addParam('wmode', 'Transparent');
+flash.addVariable('pw', pw);
+flash.addVariable('ph', ph);
+flash.addVariable('sizes', sizes);
+flash.addVariable('umcolor', umcolor);
+flash.addVariable('btnbg', btnbg);
+flash.addVariable('txtcolor', txtcolor);
+flash.addVariable('txtoutcolor', txtoutcolor);
+flash.addVariable('urls', urls);
+flash.addVariable('Times', Times);
+flash.addVariable('titles', titles);
+flash.addVariable('imgs', imgs);
+flash.write('dplayer2');
+</SCRIPT>

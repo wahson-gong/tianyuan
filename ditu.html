@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+		<title>配送</title>
+		<style type="text/css">
+body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+</style>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=eYf9sA6yVTFHlh9ytU4a0EYY"></script>
+	</head>
+	<body>
+		<div id="allmap"></div>
+	</body>
+</html>
+<script type="text/javascript">
+
+// 百度地图API功能
+var map = new BMap.Map("allmap");
+map.centerAndZoom(new BMap.Point(104.035258,30.640155), 11);
+map.enableScrollWheelZoom(true);
+var p1 = new BMap.Point(104.075475,30.647238);
+var data = [
+{
+	"Id": "18afc3f9-748b-407b-9daf-aabbcbc10566",
+    "Name": "配送点111",
+    "State": "配送中",
+    "Latitude": "103.990675",
+    "Longitude": "30.633443"
+},{
+	"Id": "18afc3f9-748b-407b-9daf-aabbcbc10566",
+    "Name": "配送点22",
+    "State": "配送中",
+    "Latitude": "104.036047",
+    "Longitude": "30.640816"
+},
+{
+	"Id": "18afc3f9-748b-407b-9daf-aabbcbc10566",
+    "Name": "配送点2233",
+    "State": "配送中",
+    "Latitude": "104.048526",
+    "Longitude": "30.646679"
+},
+{
+	"Id": "18afc3f9-748b-407b-9daf-aabbcbc10566",
+    "Name": "配送点2254545",
+    "State": "配送中",
+    "Latitude": "104.027793",
+    "Longitude": "30.631734"
+}];
+
+console.log(data.length,data[0].Latitude)
+p = [];
+distance = [];
+arr = [];
+for (var i = 0;i<data.length;i++) {
+	p.push(new BMap.Point(data[i].Latitude,data[i].Longitude));
+}
+for (var i=0;i<p.length;i++) {
+	distance.push(map.getDistance(p1,p[i]))
+}
+
+console.log(arr,123)
+console.log(distance.indexOf(Math.max.apply(Math, distance)));
+var max = distance.indexOf(Math.max.apply(Math, distance))
+var min = distance.indexOf(Math.min.apply(Math, distance))
+for (var i=0;i<p.length;i++) {
+	if(i == min){
+	}else if(i == max){
+		
+	}else{
+		arr.push(p[i])
+	}
+	
+}
+arr.unshift(p[min]);
+var p2 = new BMap.Point(103.990675,30.633443);
+//途径点
+//var p3 = new BMap.Point(104.048526,30.646679);
+//var p4 = new BMap.Point(104.036047,30.640816);
+//var distance = map.getDistance(p1,p3);
+
+var driving = new BMap.DrivingRoute(map, {renderOptions:{map: map, autoViewport: true}});
+driving.search(p1, p[max],{waypoints:arr});//waypoints表示途经点
+
+</script>

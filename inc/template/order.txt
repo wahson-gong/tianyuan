@@ -1,0 +1,31 @@
+﻿ {
+           "touser":"{fzw:database:openid/}",
+           "template_id":"uS5pC11OQPRUv9fq94zOjNyXhQUwvohKkqPC9P797VI",
+           "url":"http://www.sihaiqh.com/search.aspx?m=user_order",            
+           "data":{
+				 "first": {
+                       "value":"您的订单已经标记发货，请留意查收。>>查询订单物流状态",
+					   "color":"#173177"
+                   },
+				   "orderProductPrice": {
+                       "value":"{fzw:database:jine/}元",
+					   "color":"#173177"
+                   },
+                   "orderProductName": {
+                       "value":"{fzw:database:sl_cart/}",
+					   "color":"#173177"
+                   },
+                   "orderAddress":{
+                       "value":"{fzw:database:shoujianrenxingming/} {fzw:database:shoujihaoma/} {fzw:database:suozaidiqu/}{fzw:database:jiedaodizhi/}",
+					   "color":"#173177"
+                   },
+                   "orderName": {
+                       "value":"{fzw:database:dingdanhao/}",
+					   "color":"#173177"
+                   },
+                   "remark":{
+                       "value":"期待您的光临！！",
+                       "color":"#173177"
+                   }
+           }
+       }

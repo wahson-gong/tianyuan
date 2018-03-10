@@ -1,0 +1,12 @@
+﻿<script>
+			var pr = document.querySelector( '.paginate.prev' );
+			var pl = document.querySelector( '.paginate.next' );
+			var index = {d_page}, total = {fenye_count};
+			function slide(offset) {
+			  index = Math.min( Math.max( index + offset, 0 ), total - 1 );
+			  document.querySelector( '.counter' ).innerHTML = ( index + 1 ) + ' / ' + total;
+			  pr.setAttribute( 'data-state', index === 0 ? 'disabled' : '' );
+			  pl.setAttribute( 'data-state', index === total - 1 ? 'disabled' : '' );
+			}
+			slide(0);
+            </script>

@@ -1,0 +1,106 @@
+﻿<!DOCTYPE html>
+<html>
+<head id="Head1" runat="server">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no," />
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+    <link rel="stylesheet" type="text/css" href="/admin/css/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="/admin/fonts/css/fontello.css" />
+    <link rel="stylesheet" type="text/css" href="/admin/css/common.css" />
+    <!--[if lt IE 8]>
+        <link rel="stylesheet" href="/admin/fonts/css/fontello-ie7.css">
+    <![endif]-->
+    <script src="/admin/js/jquery-1.11.2.min.js" type="text/javascript"></script>
+    <!--[if lt IE 9]>
+          <script src="/admin/js/html5shiv.min.js"></script>
+          <script src="/admin/js/respond.min.js"></script>
+        <![endif]-->
+
+    <title>登录</title>
+
+    <style>
+        body, html {
+            height: 100%;
+        }
+
+        .errbox {
+            width: 80%;
+            max-width: 500px;
+            margin: 0 auto;
+            padding-top: 15%;
+            font-size: 16px;
+        }
+        .login_pt{
+            width:100%;
+            padding:10px;
+            margin:10px 0;
+            box-sizing:border-box;
+            border:1px solid #808080;
+        }
+        .login_sub{
+            padding:10px 25px;
+            background:#0a8dd6;
+            color:#fff;
+            border:0;
+            border-radius:5px;
+            outline:medium;
+            margin-top:10px;
+        }
+    </style>
+
+
+</head>
+<body class="body-color">
+
+        <!--主体部分-->
+        <!--数据分析-->
+        <section class="errbox">
+            <div class="home-modular">
+                <div class="home-modular-header" style="font-size:20px">
+                    <span class="ficon ficon-shujutongji"></span>&nbsp;登录
+                </div>
+                <div class="home-modular-contet">
+                    <div class="data-analysis">
+                        <form name="logina" id="logina" method="post" action="/Execution.aspx?type=login&t=user&tipurl={fzw:url:tipurl/}&tip_string=用户登录成功！">
+                            <div class="login tct" style="display:block">
+                                <div class="login_Box">
+                                   
+                                    <div class="login_box clearfix">
+                                        <i class="login_i login_i1 lf"></i>
+                                        <input type="text" class="login_pt " id="yonghuming" name="yonghuming" placeholder="用户名" />
+                                    </div>
+                                    <div class="login_box clearfix">
+                                        <i class="login_i login_i2 lf"></i>
+                                        <input type="password" class="login_pt " id="mima" name="mima" placeholder="请输入密码" />
+                                    </div>
+                                    <input type="submit" class="login_sub" value="登录" onclick="return denglua()" />
+                                  
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <p class="clear"></p>
+                </div>
+            </div>
+        </section>
+        <!--数据分析 end -->
+        <script src="/inc/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript">
+			function denglua() {
+			    if (document.getElementById("yonghuming").value == "") {
+			        layer.alert("用户名不可以为空");
+			        document.getElementById("yonghuming").focus();
+			        return false;
+			    }
+			    if (document.getElementById("mima").value == "") {
+			        layer.alert("密码不可以为空");
+			        document.getElementById("mima").focus();
+			        return false;
+			    }
+			}
+        </script>
+
+</body>
+</html>

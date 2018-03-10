@@ -1,0 +1,27 @@
+﻿ {
+           "touser":"{fzw:database:openid/}",
+           "template_id":"W0uitE1bOy8AhSH1QvleIfUq0AkbzTA-El4HPsEGl88",
+           "url":"http://www.sihaiqh.com/search.aspx?m=user_yhq&zhuangtai=%E5%B7%B2%E4%BD%BF%E7%94%A8",            
+           "data":{
+				 "first": {
+                       "value":"你本次购买信息如下：",
+					   "color":"#173177"
+                   },
+                   "keyword1": {
+                       "value":"{fzw:database:youhuiquanbianhao	/}",
+					   "color":"#173177"
+                   },
+                   "keyword2":{
+                       "value":"{fzw:database:youhuiquanbianhao_mianzhi	/}",
+					   "color":"#173177"
+                   },
+                   "keyword3": {
+                       "value":"{fzw:database:dtime/}",
+					   "color":"#173177"
+                   },
+                   "remark":{
+                       "value":"有问题请联系：13981901367。",
+                       "color":"#173177"
+                   }
+           }
+       }

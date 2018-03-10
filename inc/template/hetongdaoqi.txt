@@ -1,0 +1,27 @@
+﻿ {
+           "touser":"{fzw:database:openid/}",
+           "template_id":"BBcMSvPRLe5u6dWvzMoozaGFbhwsrEvK61OoDloChQM",
+           "url":"http://office..com/admin/hetong_table_add.aspx?Model_id=76&type=edit&id={fzw:database:id/}",            
+           "data":{
+				 "first": {
+                       "value":"{fzw:database:yonghuming/}，有合同要到期了，续费金额：{fzw:database:xufeijine/}元。",
+					   "color":"#173177"
+                   },
+                   "keyword1": {
+                       "value":"{fzw:database:gongsimingcheng/}",
+					   "color":"#173177"
+                   },
+                   "keyword2":{
+                       "value":"{fzw:database:hetongqiandingshijian	/}",
+					   "color":"#173177"
+                   },
+                   "keyword3": {
+                       "value":"{fzw:database:hetongdaoqishijian/}",
+					   "color":"#173177"
+                   },
+                   "remark":{
+                       "value":"合同即将到期，请尽快联系客户，相关人员配合客服收款。",
+                       "color":"#173177"
+                   }
+           }
+       }

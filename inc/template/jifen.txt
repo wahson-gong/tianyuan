@@ -1,0 +1,31 @@
+﻿ {
+           "touser":"{fzw:database:openid/}",
+           "template_id":"NlmSijZ7XmYR0vv2mbJyZrlp_XJV5y0XZG6ugHXoif4",
+           "url":"http://www.sihaiqh.com/search.aspx?m=user_jifen",            
+           "data":{
+				 "first": {
+                       "value":"{fzw:database:shijian/}",
+					   "color":"#173177"
+                   },
+                   "keyword1": {
+                       "value":"{fzw:database:leixing/}",
+					   "color":"#173177"
+                   },
+                   "keyword2":{
+                       "value":"{fzw:database:fenshu/}",
+					   "color":"#173177"
+                   },
+                   "keyword3": {
+                       "value":"四海情怀",
+					   "color":"#173177"
+                   },
+				    "keyword4": {
+                       "value":"{fzw:database:dtime/}",
+					   "color":"#173177"
+                   },
+                   "remark":{
+                       "value":"感谢您的使用。",
+                       "color":"#173177"
+                   }
+           }
+       }

@@ -1,0 +1,27 @@
+﻿ {
+           "touser":"{fzw:database:openid/}",
+           "template_id":"JEAuWugb7KnAw-dFHALvRNvUeYthIHk49n4x7xsLRUM",
+           "url":"http://www.sihaiqh.com/search.aspx?m=user_yuding",            
+           "data":{
+				 "first": {
+                       "value":"{fzw:database:yonghuming/}你好，你的预定已确认成功。",
+					   "color":"#173177"
+                   },
+                   "keyword1": {
+                       "value":"{fzw:database:dianpumingcheng/}",
+					   "color":"#173177"
+                   },
+                   "keyword2":{
+                       "value":"{fzw:database:laidianshijian/}",
+					   "color":"#173177"
+                   },
+                   "keyword3": {
+                       "value":"{fzw:database:renshu/} {fzw:database:beizhu/}",
+					   "color":"#173177"
+                   },
+                   "remark":{
+                       "value":"感谢你的预定。",
+                       "color":"#173177"
+                   }
+           }
+       }
