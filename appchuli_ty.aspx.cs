@@ -1710,7 +1710,7 @@ public partial class Execution : System.Web.UI.Page
              *用户名 token
              *
              */
-            #region 查询订单详细数据接口
+            #region 使用扫描获得的凭据数据接口
             if (is_login())
             {
                 string orderid = string.Empty;// 
@@ -1745,12 +1745,35 @@ public partial class Execution : System.Web.UI.Page
                         }
                         else
                         {
-                            
-                            string order_state = State == "完成" ? "3" : "5";
+
+                            string order_state = State == "完成" ? "3" : "6";
                             string service_state = State == "完成" ? "2" : "4";
 
                             string sql_order_state = "update [order] set state=" + order_state + "  where  id='" + orderid + "' or Number='" + orderid + "' ";
                             string sql_service_state = "update [Service] set state=" + service_state + "  where  FromValue='" + dt_Order.Rows[0]["ID"].ToString() + "'  ";
+                            string service_state_old = "";//0正常,1服务中,2完成,3结束,4取消
+                            if (order_State == "0")
+                            {
+                                service_state_old = "正常";
+                            }
+                            else if (order_State == "1")
+                            {
+                                service_state_old = "服务中";
+                            }
+                            else if (order_State == "2")
+                            {
+                                service_state_old = "完成";
+                            }
+                            else if (order_State == "3")
+                            {
+                                service_state_old = "结束";
+                            }
+                            else if (order_State == "4")
+                            {
+                                service_state_old = "取消";
+                            }
+
+                            string sql_OrderLog = "insert into  OrderLog (ID,OrderID,Body,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + dt_Order.Rows[0]["ID"].ToString() + "','订单状态由 " + service_state_old + " 改变为 " + State + "  ' )";
                             //更新订单状态
                             my_c.genxin(sql_order_state, "sql_conn2");
                             //更改service配送表状态
@@ -1780,14 +1803,18 @@ public partial class Execution : System.Web.UI.Page
         }
         else if (type == "peisongjuli")
         {
+            #region 订单的配送距离 单位 米
+
             string peisongjuli = ConfigurationSettings.AppSettings["peisongjuli"].ToString();
             Response.Write(peisongjuli);
-            Response.End();
+            Response.End(); 
+            #endregion
         }
         else if (type == "peisongwanchengrizhi")
         {
+            #region 配送完成后记录配送员的位置信息
             string orderid = string.Empty;// 
-            int peisongyichangjuli = int.Parse(ConfigurationSettings.AppSettings["peisongyichangjuli"].ToString()) ;
+            int peisongyichangjuli = int.Parse(ConfigurationSettings.AppSettings["peisongyichangjuli"].ToString());
             string Long = string.Empty;//经度
             string Lat = string.Empty;//纬度
             try
@@ -1826,50 +1853,51 @@ public partial class Execution : System.Web.UI.Page
             }
 
             //查询订单
-             DataTable dt_Order = my_c.GetTable("select *  from [Order] where id='" + orderid + "' or Number='" + orderid + "' ", "sql_conn2");
-             if (dt_Order.Rows.Count > 0)
-             {
-                 //查询配送点
-                 DataTable dt_peisongdian = my_c.GetTable("select top 1 g.Name,g.Latitude,g.Longitude,g.ID from UserGroupLocation as u , GroupLocation as g where u.UserID='" + dt_Order.Rows[0]["UserID"].ToString() + "' and g.ID= u.GroupLocationID", "sql_conn6");
-                 //比较配送点和配送员当前位置
-                 double lat1, lng1;
-                 double lat2, lng2;
-                 lat1 = double.Parse(Lat);
-                 lng1 = double.Parse(Long);
-                 lat2 = double.Parse(dt_peisongdian.Rows[0]["Latitude"].ToString());
-                 lng2 = double.Parse(dt_peisongdian.Rows[0]["Longitude"].ToString());
-                 double temp_distance = this.GetDistance(lat1, lng1, lat2, lng2);
-                 //Response.Write(temp_distance);
-                 if (temp_distance > peisongyichangjuli)
-                 {
-                     //写入配送异常数据表
-                     string peisongyuan, dingdanhao, caozuoweizhi, zhixianjuli;
-                     //查询配送员
-                     string sql_service = "select *  from Service where FromValue='" + dt_Order.Rows[0]["id"].ToString() + "' ";
-                     DataTable dt_service = my_c.GetTable(sql_service, "sql_conn7");
-                     peisongyuan = dt_service.Rows[0]["ServiceID"].ToString();
-                     //peisongyuan = this.getUserid();
-                     dingdanhao = dt_Order.Rows[0]["id"].ToString();
-                     caozuoweizhi = Long + "," + Lat;
-                     zhixianjuli = temp_distance.ToString();
-                     string sql_peisongyichangrizhi = "insert into  sl_peisongyichangrizhi (peisongyuan,dingdanhao,caozuoweizhi,zhixianjuli) values('" + peisongyuan + "','" + peisongyuan + "','" + caozuoweizhi + "','" + zhixianjuli + "')";
-                     my_c.genxin(sql_peisongyichangrizhi);
-                     status = "true";
-                     msg = "操作成功,以记录当前位置信息" + temp_distance.ToString();
-                 }
-                 else
-                 {
-                     status = "true";
-                     msg = "操作成功";
-                 }
-                 
+            DataTable dt_Order = my_c.GetTable("select *  from [Order] where id='" + orderid + "' or Number='" + orderid + "' ", "sql_conn2");
+            if (dt_Order.Rows.Count > 0)
+            {
+                //查询配送点
+                DataTable dt_peisongdian = my_c.GetTable("select top 1 g.Name,g.Latitude,g.Longitude,g.ID from UserGroupLocation as u , GroupLocation as g where u.UserID='" + dt_Order.Rows[0]["UserID"].ToString() + "' and g.ID= u.GroupLocationID", "sql_conn6");
+                //比较配送点和配送员当前位置
+                double lat1, lng1;
+                double lat2, lng2;
+                lat1 = double.Parse(Lat);
+                lng1 = double.Parse(Long);
+                lat2 = double.Parse(dt_peisongdian.Rows[0]["Latitude"].ToString());
+                lng2 = double.Parse(dt_peisongdian.Rows[0]["Longitude"].ToString());
+                double temp_distance = this.GetDistance(lat1, lng1, lat2, lng2);
+                //Response.Write(temp_distance);
+                if (temp_distance > peisongyichangjuli)
+                {
+                    //写入配送异常数据表
+                    string peisongyuan, dingdanhao, caozuoweizhi, zhixianjuli;
+                    //查询配送员
+                    string sql_service = "select *  from Service where FromValue='" + dt_Order.Rows[0]["id"].ToString() + "' ";
+                    DataTable dt_service = my_c.GetTable(sql_service, "sql_conn7");
+                    peisongyuan = dt_service.Rows[0]["ServiceID"].ToString();
+                    //peisongyuan = this.getUserid();
+                    dingdanhao = dt_Order.Rows[0]["id"].ToString();
+                    caozuoweizhi = Long + "," + Lat;
+                    zhixianjuli = temp_distance.ToString();
+                    string sql_peisongyichangrizhi = "insert into  sl_peisongyichangrizhi (peisongyuan,dingdanhao,caozuoweizhi,zhixianjuli) values('" + peisongyuan + "','" + peisongyuan + "','" + caozuoweizhi + "','" + zhixianjuli + "')";
+                    my_c.genxin(sql_peisongyichangrizhi);
+                    status = "true";
+                    msg = "操作成功,以记录当前位置信息" + temp_distance.ToString();
+                }
+                else
+                {
+                    status = "true";
+                    msg = "操作成功";
+                }
 
-             }
-             else
-             {
-                 status = "false";
-                 msg = "订单号不存在";
-             }
+
+            }
+            else
+            {
+                status = "false";
+                msg = "订单号不存在";
+            } 
+            #endregion
              
 
         }
