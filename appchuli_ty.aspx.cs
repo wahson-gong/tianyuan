@@ -646,7 +646,7 @@ public partial class Execution : System.Web.UI.Page
               
 
                 //派单列表 
-                string sql_number = "select Number,UserName,Address ,State,BeginTime  from Service where ServiceID='" + UserID + "' group by Number,UserName,Address ,State,BeginTime ";
+                string sql_number = "select Number,UserName,Address ,State,BeginTime,UserID  from Service where ServiceID='" + UserID + "' group by Number,UserName,Address ,State,BeginTime,UserID ";
                // Response.Write(sql_number); Response.End();
                 DataTable dt_number = my_c.GetTable(sql_number, "sql_conn7");
                 
@@ -659,7 +659,27 @@ public partial class Execution : System.Web.UI.Page
                     //"UserName", "Names", "Address", "State", "BeginTime"
                     dr1["Number"] = dr["Number"].ToString();
                     dr1["UserName"] = dr["UserName"].ToString();
-                    dr1["Address"] = dr["Address"].ToString();
+
+                    //查询下单用户的地址
+                    string Address = "";
+                    DataTable dt_user_detailed = my_c.GetTable("select * from [UserDetailed] where UserID='" + dr["UserID"].ToString() + "' and Detailed='详细地址' ", "sql_conn12");
+                    try
+                    {
+                        Address = dt_user_detailed.Rows[0]["value"].ToString();
+                    }
+                    catch { }
+                    //Address
+                    if (string.IsNullOrEmpty(dr["Address"].ToString()))
+                    {
+                        dr1["Address"] = Address;
+                    }
+                    else
+                    {
+                        dr1["Address"] = dr["Address"].ToString();
+                    }
+                    
+
+
                     dr1["State"] = dr["State"].ToString();
                     dr1["BeginTime"] = dr["BeginTime"].ToString();
 
@@ -936,7 +956,7 @@ public partial class Execution : System.Web.UI.Page
                     dt_count--;
                     string temp_ID = "";
                     DataRow temp_dr1 = dt.NewRow();
-                     
+                    //Response.Write("<br/>"+temp_IDs+"<br/>");
                     foreach (DataRow temp_dr in dt.Select(temp_IDs))
                     {
                         
@@ -948,7 +968,7 @@ public partial class Execution : System.Web.UI.Page
 
                         double temp_distance1 = this.GetDistance(lat1, lng1, lat2, lng2);
 
-                        //Response.Write("" + string.Format("{0}  ,{1}  ,{2}  ,{3},  temp_distance1= {4}  ", lat1, lng1, lat2, lng2, temp_distance1) + "  " + "<br/>");
+                        //Response.Write("" + string.Format("{0}  ,{1}  ,{2}  ,{3},  temp_distance1= {4},  {5}  ", lat1, lng1, lat2, lng2, temp_distance1, temp_dr["Name"].ToString()) + "  " + "<br/>");
                         //Response.Flush();
 
                         //Response.Write("" + temp_distance1 + "  " + temp_distance + "<br/>");
@@ -956,29 +976,20 @@ public partial class Execution : System.Web.UI.Page
 
                         if (temp_distance == 0)
                         {
-                            temp_ID = temp_dr["ID"].ToString();
-                            temp_IDs = "ID <> '" + temp_ID + "'";
+                             
                             temp_distance = temp_distance1;
+                            temp_ID = temp_dr["ID"].ToString();
 
-                            Long = temp_dr["Longitude"].ToString();
-                            Lat = temp_dr["Latitude"].ToString();
-                            lat1 = double.Parse(Lat);
-                            lng1 = double.Parse(Long);
 
                         }
                         else
                         {
                             
                             if (temp_distance1 < temp_distance)
-                            {
-                                temp_ID = temp_dr["ID"].ToString();
-                                temp_IDs = temp_IDs + " and " + "ID <> '" + temp_ID + "'";
+                            { 
                                 temp_distance = temp_distance1;
-
-                                Long = temp_dr["Longitude"].ToString();
-                                Lat = temp_dr["Latitude"].ToString();
-                                lat1 = double.Parse(Lat);
-                                lng1 = double.Parse(Long);
+                                temp_ID = temp_dr["ID"].ToString();
+                                
                             }
                         }
 
@@ -993,13 +1004,28 @@ public partial class Execution : System.Web.UI.Page
                     foreach (DataRow row in DrCount1)
                     {
                         temp_dt.Rows.Add(row.ItemArray);
-                        //更新起点坐标的经纬度
-                       
+                        //排除不需要排序的配送点
+                        if (string.IsNullOrEmpty(temp_IDs))
+                        {
+                            temp_IDs = "ID <> '" + row["ID"].ToString() + "'";
+                        }
+                        else
+                        {
+                            
+                            temp_IDs = temp_IDs + " and " + "ID <> '" + row["ID"].ToString() + "'";
+                        }
 
-                        dt.Rows.Remove(row);
+                        //更换下一次的起始点
+                        Long = row["Longitude"].ToString();
+                        Lat = row["Latitude"].ToString();
+                        lat1 = double.Parse(Lat);
+                        lng1 = double.Parse(Long);
+
+                        //dt.Rows.Remove(row);
+                        //Response.Write("" + string.Format("<br/>{0},{1} ==>选择 {2}", lat1, lng1, row["name"].ToString()) + "<br/>");
+                        //Response.Flush();
                     }
-                    //Response.Write("" + string.Format("{0},{1}", lat1, lng1) + "<br/>");
-                    //Response.Flush();
+                    
                     
 
                    
@@ -1078,9 +1104,10 @@ public partial class Execution : System.Web.UI.Page
                         //当前派单属于当前的配送员   ServiceID = userID
                         //派单列表 
                         string sql_number = "select Number,UserName,Address ,State,BeginTime  from Service where ServiceID='" + UserID + "' and UserID='"+kehuID+"' group by Number,UserName,Address ,State,BeginTime ";
-                        // Response.Write(sql_number); Response.End();
+                        string sql_UserDetailed = "select  * from UserDetailed where UserID='" + kehuID + "' and  Detailed='详细地址' ";  //
+                        //Response.Write(sql_UserDetailed); Response.End();
                         DataTable dt_number = my_c.GetTable(sql_number, "sql_conn7");
-
+                        DataTable dt_UserDetailed = my_c.GetTable(sql_UserDetailed, "sql_conn12");
 
                         //遍历用户配送的派单列表
                         foreach (DataRow dr in dt_number.Rows)
@@ -1090,7 +1117,19 @@ public partial class Execution : System.Web.UI.Page
                             //"UserName", "Names", "Address", "State", "BeginTime"
                             dr1["Number"] = dr["Number"].ToString();
                             dr1["UserName"] = dr["UserName"].ToString();
-                            dr1["Address"] = dr["Address"].ToString();
+
+
+                            try
+                            {
+                                dr1["Address"] = dt_UserDetailed.Rows[0]["value"].ToString();
+                            }
+                            catch
+                            {
+                                dr1["Address"] = dr["Address"].ToString();
+                            }
+                            //dr1["Address"] = dt_UserDetailed.Rows[0]["value"].ToString();
+                           
+
                             dr1["State"] = dr["State"].ToString();
                             dr1["BeginTime"] = dr["BeginTime"].ToString();
 
@@ -1167,7 +1206,7 @@ public partial class Execution : System.Web.UI.Page
                 {
                     DataTable dt = new DataTable();
                     //初始化派单的详细数据datatable
-                    string[] dt_araay = { "ServiceDetail", "Commodity", "ServiceRemarks","UserNumber" };
+                    string[] dt_araay = { "ServiceDetail", "Commodity", "ServiceRemarks", "UserNumber", "Address" };
                     dt = my_dt.setdt(dt_araay);
 
  
@@ -1179,6 +1218,16 @@ public partial class Execution : System.Web.UI.Page
                     try
                     {
                          kehuID = dt_service.Rows[0]["UserID"].ToString();
+                    }
+                    catch { }
+                    //
+                    string sql_UserDetailed = "select  * from UserDetailed where UserID='" + kehuID + "' and  Detailed='详细地址' ";  //
+                    DataTable dt_UserDetailed = my_c.GetTable(sql_UserDetailed, "sql_conn12");
+                    //
+                    string Address = "";
+                    try
+                    {
+                        Address = dt_UserDetailed.Rows[0]["value"].ToString();
                     }
                     catch { }
 
@@ -1202,6 +1251,7 @@ public partial class Execution : System.Web.UI.Page
                     temp_dr["Commodity"] = my_json_ghy.DataTableToJsonWithJavaScriptSerializer(dt_commodity);
                     temp_dr["ServiceRemarks"] = my_json_ghy.DataTableToJsonWithJavaScriptSerializer(dt_serviceremarks);
                     temp_dr["UserNumber"] = UserNumber;
+                    temp_dr["Address"] = Address;
                     //插入返回数据
                     dt.Rows.Add(temp_dr);
 
@@ -1417,16 +1467,16 @@ public partial class Execution : System.Web.UI.Page
             #region 查询订单详细数据接口
             if (is_login())
             {
-                string PassWord = string.Empty;//凭据令牌
+                string Ticket = string.Empty;//凭据的password
                   
                 try
                 {
 
-                    PassWord = Request.Params["PassWord"];
+                    Ticket = Request.Params["Ticket"];//password
                 }
                 catch { }
-                 
-                if (!string.IsNullOrEmpty(PassWord))
+
+                if (!string.IsNullOrEmpty(Ticket))
                 {
                     DataTable dt = new DataTable();
                     //初始化派单的详细数据datatable
@@ -1435,7 +1485,7 @@ public partial class Execution : System.Web.UI.Page
 
                     //查询凭据详情
                     //
-                    DataTable dt_Ticket = my_c.GetTable("select  t.ID,t.UserID,t.Number,t.Body,t.State,t.Name,d.Value,l.userurl    from Ticket as t,TicketDetailed as d,TicketLable as l  where PassWord='" + PassWord + "' and d.TicketID=t.ID and l.TicketID=t.ID", "sql_conn5");
+                    DataTable dt_Ticket = my_c.GetTable("select  t.ID,t.UserID,t.Number,t.Body,t.State,t.Name,d.Value,l.userurl    from Ticket as t,TicketDetailed as d,TicketLable as l  where t.password='" + Ticket + "' and d.TicketID=t.ID and l.TicketID=t.ID", "sql_conn5");
                     DataTable dt_user = new DataTable();
 
                     //select Number,Name,Phone from [User] where ID='7e6c62d2-3118-4975-99bb-beeb1097e6a3'
@@ -1493,7 +1543,7 @@ public partial class Execution : System.Web.UI.Page
              *用户名 token
              *
              */
-            #region 查询订单详细数据接口
+            #region 使用扫描获得的凭据数据接口
             if (is_login())
             {
                 string TicketID = string.Empty;//凭据令牌
@@ -1616,7 +1666,7 @@ public partial class Execution : System.Web.UI.Page
                         {
                             //统一数据
                             ID = my_b.md5(my_b.get_bianhao());
-                            Number = my_b.get_bianhao();
+                            Number ="SE"+ my_b.get_bianhao();
                             Type = "0";
                             BeginTime = DateTime.Now.ToString();
                             ServiceBodyID = "";
@@ -1640,7 +1690,7 @@ public partial class Execution : System.Web.UI.Page
                                 Address = dt_user_detailed.Rows[0]["value"].ToString();
                             }
                             catch { }
-                            Address = " ";
+                            Address = "";
                             //查询配送员详情
 
                             DataTable dt_user_peisongyuan = my_c.GetTable("select * from [User] where id='" + ServiceID + "'", "sql_conn12");
@@ -1669,7 +1719,7 @@ public partial class Execution : System.Web.UI.Page
                             my_c.genxin(sql_order_state, "sql_conn2");
 
                             status = "true";
-                            msg = "订单已分配给当前用户";
+                            msg = "分配成功";
                     
                         }
                         
