@@ -648,8 +648,28 @@ public partial class Execution : System.Web.UI.Page
 
                 
                 string UserID = string.Empty;//当前用户
-               
-               
+
+                string sql_BeginTime = string.Empty;//查询派单日期
+                string BeginTime = string.Empty;//派单状态
+
+                string sql_State = string.Empty;//查询派单状态
+                string State = string.Empty;//派单状态
+                 
+                try
+                {
+                    BeginTime = Request.Params["BeginTime"];
+
+                }
+                catch { }
+
+                try
+                {
+                    State = Request.Params["State"];
+
+                }
+                catch { }
+
+
                 try
                 {
 
@@ -657,10 +677,17 @@ public partial class Execution : System.Web.UI.Page
                 }
                 catch { }
 
-              
+                if (!string.IsNullOrEmpty(BeginTime))
+                {
+                    sql_BeginTime = "  and datediff(DAY, UpTime ,'" + BeginTime + "') = 0  ";
+                }
+                if (!string.IsNullOrEmpty(State))
+                {
+                    sql_State = "  and State = " + State + "  ";
+                }
 
                 //派单列表 
-                string sql_number = "select * from (select Number,UserName,Address ,State,UpTime as BeginTime,UserID  from Service where ServiceID='" + UserID + "' group by Number,UserName,Address ,State,UpTime,UserID ) as t order by BeginTime desc";
+                string sql_number = "select  distinct * from (select Number,UserName,Address ,State,CONVERT(varchar(100), UpTime , 23) as BeginTime  ,UserID  from Service where ServiceID='" + UserID + "' " + sql_BeginTime + sql_State + " group by Number,UserName,Address ,State,UpTime,UserID ) as t order by BeginTime desc,State asc";
                // Response.Write(sql_number); Response.End();
                 DataTable dt_number = my_c.GetTable(sql_number, "sql_conn7");
                 
@@ -1116,6 +1143,35 @@ public partial class Execution : System.Web.UI.Page
                 string UserID = string.Empty;//当前用户
                 string GroupLocationID = string.Empty;//配送地点ID 
 
+                string sql_BeginTime = string.Empty;//查询派单日期
+                string BeginTime = string.Empty;//派单状态
+
+                string sql_State = string.Empty;//查询派单状态
+                string State = string.Empty;//派单状态
+                try
+                {
+                    State = Request.Params["State"];
+
+                }
+                catch { }
+
+                try
+                {
+                    BeginTime = Request.Params["BeginTime"];
+
+                }
+                catch { }
+
+                if (!string.IsNullOrEmpty(BeginTime))
+                {
+                    sql_BeginTime = "  and datediff(DAY, UpTime ,'" + BeginTime + "') = 0  ";
+                }
+
+                if (!string.IsNullOrEmpty(State))
+                {
+                    sql_State = "  and State = " + State + "  ";
+                }
+
                 try
                 {
 
@@ -1141,7 +1197,9 @@ public partial class Execution : System.Web.UI.Page
                         //查询service表中 该配送点的下单客户  UserID=kehuID
                         //当前派单属于当前的配送员   ServiceID = userID
                         //派单列表 
-                        string sql_number = "select Number,UserName,Address ,State,BeginTime  from Service where ServiceID='" + UserID + "' and UserID='"+kehuID+"' group by Number,UserName,Address ,State,BeginTime ";
+                        //string sql_number = "select Number,UserName,Address ,State,BeginTime  from Service where ServiceID='" + UserID + "' and UserID='" + kehuID + "' " + sql_State + " group by Number,UserName,Address ,State,BeginTime ";
+                        string sql_number = "select  distinct * from (select Number,UserName,Address ,State,CONVERT(varchar(100), UpTime , 23) as BeginTime  ,UserID  from Service where ServiceID='" + UserID + "' " + sql_BeginTime + sql_State + " group by Number,UserName,Address ,State,UpTime,UserID ) as t order by BeginTime desc,State asc";
+
                         string sql_UserDetailed = "select  * from UserDetailed where UserID='" + kehuID + "' and  Detailed='详细地址' ";  //
                         //Response.Write(sql_UserDetailed); Response.End();
                         DataTable dt_number = my_c.GetTable(sql_number, "sql_conn7");
@@ -1369,7 +1427,7 @@ public partial class Execution : System.Web.UI.Page
                              ServiceNumber = dt_Service.Rows[0]["Number"].ToString();
                         }
                         //订单包含商品
-                        DataTable dt_Commodity = my_c.GetTable("select Name, (Price * Num) as Price, Price as danjia ,ImgFile,Num  from OrderCommodity where OrderID='" + ID + "'", "sql_conn2");
+                        DataTable dt_Commodity = my_c.GetTable("select Name, (NowPrice * Num) as Price, NowPrice as danjia ,ImgFile,Num  from OrderCommodity where OrderID='" + ID + "'", "sql_conn2");
 
 
 
@@ -1715,7 +1773,7 @@ public partial class Execution : System.Web.UI.Page
                             FromValue = dt_Order.Rows[0]["ID"].ToString();
                             UserID = dt_Order.Rows[0]["UserID"].ToString();
                             ServiceID = this.getUserid();
-                            State = "0";
+                            State = "2";//该配送单直接就是已经完成配送
                             EndUrl = "http://tylogistics-test.cqtyrl.com/WebApi/EndService.ashx?OrderID=" + dt_Order.Rows[0]["ID"].ToString();
                             OutUrl = "http://tylogistics-test.cqtyrl.com/WebApi/OutService.ashx?OrderID=" + dt_Order.Rows[0]["ID"].ToString();
                             UpTime = DateTime.Now.ToString();
@@ -1740,7 +1798,7 @@ public partial class Execution : System.Web.UI.Page
 
 
                             //订单包含商品
-                            DataTable dt_Commodity = my_c.GetTable("select ID,Name, Price,ImgFile,Num,Explain  from OrderCommodity where OrderID='" + dt_Order.Rows[0]["ID"].ToString() + "'", "sql_conn2");
+                            DataTable dt_Commodity = my_c.GetTable("select ID,Name, NowPrice as Price,ImgFile,Num,Explain  from OrderCommodity where OrderID='" + dt_Order.Rows[0]["ID"].ToString() + "'", "sql_conn2");
 
                             //更新订单状态
                             string sql_order_state = "update [order] set state=1  where  id='" + orderid + "' or Number='" + orderid + "' ";
@@ -1751,7 +1809,9 @@ public partial class Execution : System.Web.UI.Page
 
                                 ID = my_b.md5(dr_Commodity["ID"].ToString());
                                 Name = dr_Commodity["Name"].ToString();
-                                Body = "数量：" + dr_Commodity["Num"].ToString() + "  备注：" + dr_Commodity["Explain"].ToString() + "  单价：" + dr_Commodity["Price"].ToString() + "  总价：" + (float.Parse(dr_Commodity["Num"].ToString()) * float.Parse(dr_Commodity["Price"].ToString())).ToString() + "";
+                                //Body = "数量：" + dr_Commodity["Num"].ToString() + "  备注：" + dr_Commodity["Explain"].ToString() + "  单价：" + dr_Commodity["Price"].ToString() + "  总价：" + (float.Parse(dr_Commodity["Num"].ToString()) * float.Parse(dr_Commodity["Price"].ToString())).ToString() + "";
+                                Body = "数量：" + dr_Commodity["Num"].ToString()  + "  单价：" + dr_Commodity["Price"].ToString() + "  总价：" + (float.Parse(dr_Commodity["Num"].ToString()) * float.Parse(dr_Commodity["Price"].ToString())).ToString() + "";
+
                                 Num = dr_Commodity["Num"].ToString();
 
                                 //更新service表
@@ -1836,14 +1896,36 @@ public partial class Execution : System.Web.UI.Page
                         string order_State = dt_Order.Rows[0]["State"].ToString();
                         if (order_State != "1")
                         {
+                            string service_state_old = "";
+                            if (order_State == "0")
+                            {
+                                service_state_old = "正常";
+                            }
+                            else if (order_State == "1")
+                            {
+                                service_state_old = "服务中";
+                            }
+                            else if (order_State == "2")
+                            {
+                                service_state_old = "完成";
+                            }
+                            else if (order_State == "3")
+                            {
+                                service_state_old = "结束";
+                            }
+                            else if (order_State == "4")
+                            {
+                                service_state_old = "取消";
+                            }
+
                             status = "false";
-                            msg = "订单已处理";
+                            msg = "错误:订单已" + service_state_old;
                         }
                         else
                         {
 
                             string order_state = State == "完成" ? "3" : "6";
-                            string service_state = State == "完成" ? "2" : "4";
+                            string service_state = State == "完成" ? "2" : "3";
 
                             string sql_order_state = "update [order] set state=" + order_state + "  where  id='" + orderid + "' or Number='" + orderid + "' ";
                             string sql_service_state = "update [Service] set state=" + service_state + "  where  FromValue='" + dt_Order.Rows[0]["ID"].ToString() + "'  ";
@@ -1868,12 +1950,27 @@ public partial class Execution : System.Web.UI.Page
                             {
                                 service_state_old = "取消";
                             }
+                            string time = System.DateTime.Now.ToString();
+                            string sql_OrderLog = "insert into  OrderLog (ID,OrderID,Body,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + dt_Order.Rows[0]["ID"].ToString() + "','订单状态由 " + service_state_old + " 改变为 " + State + "  ','" + time + "' )";
 
-                            string sql_OrderLog = "insert into  OrderLog (ID,OrderID,Body,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + dt_Order.Rows[0]["ID"].ToString() + "','订单状态由 " + service_state_old + " 改变为 " + State + "  ' )";
+                            string sql_service_detail = "select top 1 * from [Service]  where  FromValue='" + dt_Order.Rows[0]["ID"].ToString() + "'  ";
+                            string ServiceNumber = "";
+                            try
+                            {
+                                ServiceNumber = my_c.GetTable(sql_service_detail).Rows[0]["Number"].ToString();
+                            }
+                            catch { }
+                            string sql_OrderLable = "insert into  OrderLable (ID,OrderID,Name,UserUrl,AdminUrl,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + dt_Order.Rows[0]["ID"].ToString() + "','配送','http://tyservice-test.cqtyrl.com/Show/ServiceShow.aspx?ID=" + ServiceNumber + "','http://tyservice-test.cqtyrl.com/Management/ServiceShow.aspx?ID=" + ServiceNumber + "','" + time + "' )";
+
                             //更新订单状态
                             my_c.genxin(sql_order_state, "sql_conn2");
                             //更改service配送表状态
                             my_c.genxin(sql_service_state, "sql_conn7");
+
+                            //更改OrderLog
+                            my_c.genxin(sql_OrderLog, "sql_conn2");
+                            //更改OrderLable
+                            my_c.genxin(sql_OrderLable, "sql_conn2");
 
                             status = "true";
                             msg = "操作成功";
