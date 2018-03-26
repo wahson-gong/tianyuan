@@ -686,8 +686,26 @@ public partial class Execution : System.Web.UI.Page
                     sql_State = "  and State = " + State + "  ";
                 }
 
+                //查询配送用所在配送点下有哪些客户
+                //string kehu_ids = "";
+                //string sql_UserGroupLocation = "select userId from UserGroupLocation where GroupLocationID=(select GroupLocationID from UserGroupLocation where userid='" + UserID + "' )";
+                //DataTable dt_UserGroupLocation = my_c.GetTable(sql_UserGroupLocation, "sql_conn6");
+                //foreach (DataRow dr_UserGroupLocation in dt_UserGroupLocation.Rows)
+                //{
+                //    if (kehu_ids == "")
+                //    {
+                //        kehu_ids = dr_UserGroupLocation["userid"].ToString();
+                //    }
+                //    else
+                //    {
+                //        kehu_ids =kehu_ids+","+ dr_UserGroupLocation["userid"].ToString();
+                //    }
+                
+                //}
+                //Response.Write(kehu_ids); Response.End();
+
                 //派单列表 
-                string sql_number = "select  distinct * from (select Number,UserName,Address ,State,CONVERT(varchar(100), UpTime , 23) as BeginTime  ,UserID  from Service where ServiceID='" + UserID + "' " + sql_BeginTime + sql_State + " group by Number,UserName,Address ,State,UpTime,UserID ) as t order by BeginTime desc,State asc";
+                string sql_number = "select  distinct * from (select Number,UserName,Address ,State,CONVERT(varchar(100), UpTime , 23) as BeginTime  ,UserID  from Service where ServiceID='" + UserID + "' " + sql_BeginTime + sql_State + "   group by Number,UserName,Address ,State,UpTime,UserID ) as t order by BeginTime desc,State asc";
                // Response.Write(sql_number); Response.End();
                 DataTable dt_number = my_c.GetTable(sql_number, "sql_conn7");
                 
@@ -783,14 +801,26 @@ public partial class Execution : System.Web.UI.Page
 
                     if (user.Rows.Count > 0)
                     {
-                        //手机号码存在 
-                        //发送验证码    
-                        //Response.Write("https://" + Request.ServerVariables["SERVER_NAME"] + "/Execution.aspx?t=fasong&&leixingbiaoti=登录&&type=shouji_yzm&&shouji=" + Phone);
-                        //Response.End();
-                        msg = my_b.getWebFile1("https://" + Request.ServerVariables["SERVER_NAME"] + "/Execution.aspx?t=fasong&leixingbiaoti=登录&type=shouji_yzm&shouji=" + Phone);
 
-                        status = "true";
-                        msg = "短信已发送";
+                        //判断用户是否被禁用
+                        if (user.Rows[0]["State"].ToString() != "0")
+                        {
+                            status = "false";
+                            msg = "账号已禁用";
+                        }
+                        else
+                        {
+                            //手机号码存在 
+                            //发送验证码    
+                            //Response.Write("https://" + Request.ServerVariables["SERVER_NAME"] + "/Execution.aspx?t=fasong&&leixingbiaoti=登录&&type=shouji_yzm&&shouji=" + Phone);
+                            //Response.End();
+                            msg = my_b.getWebFile1("https://" + Request.ServerVariables["SERVER_NAME"] + "/Execution.aspx?t=fasong&leixingbiaoti=登录&type=shouji_yzm&shouji=" + Phone);
+
+                            status = "true";
+                            msg = "短信已发送";
+                        }
+
+                        
 
                     }
                     else
@@ -1198,7 +1228,7 @@ public partial class Execution : System.Web.UI.Page
                         //当前派单属于当前的配送员   ServiceID = userID
                         //派单列表 
                         //string sql_number = "select Number,UserName,Address ,State,BeginTime  from Service where ServiceID='" + UserID + "' and UserID='" + kehuID + "' " + sql_State + " group by Number,UserName,Address ,State,BeginTime ";
-                        string sql_number = "select  distinct * from (select Number,UserName,Address ,State,CONVERT(varchar(100), UpTime , 23) as BeginTime  ,UserID  from Service where ServiceID='" + UserID + "' " + sql_BeginTime + sql_State + " group by Number,UserName,Address ,State,UpTime,UserID ) as t order by BeginTime desc,State asc";
+                        string sql_number = "select  distinct * from (select Number,UserName,Address ,State,CONVERT(varchar(100), UpTime , 23) as BeginTime  ,UserID  from Service where ServiceID='" + UserID + "' and UserID='"+kehuID+"' " + sql_BeginTime + sql_State + " group by Number,UserName,Address ,State,UpTime,UserID ) as t order by BeginTime desc,State asc";
 
                         string sql_UserDetailed = "select  * from UserDetailed where UserID='" + kehuID + "' and  Detailed='详细地址' ";  //
                         //Response.Write(sql_UserDetailed); Response.End();
@@ -1801,7 +1831,7 @@ public partial class Execution : System.Web.UI.Page
                             DataTable dt_Commodity = my_c.GetTable("select ID,Name, NowPrice as Price,ImgFile,Num,Explain  from OrderCommodity where OrderID='" + dt_Order.Rows[0]["ID"].ToString() + "'", "sql_conn2");
 
                             //更新订单状态
-                            string sql_order_state = "update [order] set state=1  where  id='" + orderid + "' or Number='" + orderid + "' ";
+                            string sql_order_state = "update [order] set state=3  where  id='" + orderid + "' or Number='" + orderid + "' ";
                             my_c.genxin(sql_order_state, "sql_conn2");
 
                             foreach (DataRow dr_Commodity in dt_Commodity.Rows)
@@ -1822,7 +1852,46 @@ public partial class Execution : System.Web.UI.Page
 
                             }
 
-                            
+
+                            string time = System.DateTime.Now.ToString();
+                            string sql_OrderLog = "insert into  OrderLog (ID,OrderID,Body,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + dt_Order.Rows[0]["ID"].ToString() + "','订单状态由 已创建 改变为 处理中  ','" + time + "' )";
+                            string sql_OrderLog2 = "insert into  OrderLog (ID,OrderID,Body,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + dt_Order.Rows[0]["ID"].ToString() + "','订单状态由 处理中 改变为 完成  ','" + time + "' )";
+
+                            string sql_service_detail = "select  * from [Service]  where  FromValue='" + dt_Order.Rows[0]["ID"].ToString() + "'  ";
+                            string ServiceNumber = "";
+                            try
+                            {
+                                ServiceNumber = my_c.GetTable(sql_service_detail, "sql_conn7").Rows[0]["Number"].ToString();
+                            }
+                            catch { }
+                            string sql_OrderLable = "insert into  OrderLable (ID,OrderID,Name,UserUrl,AdminUrl,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + dt_Order.Rows[0]["ID"].ToString() + "','配送','http://tyservice-test.cqtyrl.com/Show/ServiceShow.aspx?ID=" + ServiceNumber + "','http://tyservice-test.cqtyrl.com/Management/ServiceShow.aspx?ID=" + ServiceNumber + "','" + time + "' )";
+
+                            string serviceID = "";
+                            string serviceBody = "";
+                            try
+                            {
+                                DataTable dt_service1 = my_c.GetTable("select * from [Service] where   FromValue='" + dt_Order.Rows[0]["ID"].ToString() + "'", "sql_conn7");
+                                serviceID = dt_service1.Rows[0]["id"].ToString();
+                                serviceBody = dt_service1.Rows[0]["Body"].ToString();
+
+                            }
+                            catch { }
+
+                             sql_ServiceLog = "insert into  ServiceLog (ID,ServiceID,Name,Body,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + serviceID + "','创建配送','" + serviceBody + "','" + time + "' )";
+                            string sql_ServiceLog1 = "insert into  ServiceLog (ID,ServiceID,Name,Body,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + serviceID + "','全部完成','全部完成','" + time + "' )";
+                            sql_ServiceLable = "insert into  ServiceLable (ID,ServiceID,Name,UserUrl,AdminUrl,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + serviceID + "','订单','http://tyorder-test.cqtyrl.com/Show/OrderShow.aspx?ID=" + dt_Order.Rows[0]["ID"].ToString() + "','http://tyorder-test.cqtyrl.com/Management/OrderShow.aspx?ID=" + dt_Order.Rows[0]["ID"].ToString() + "','" + time + "' )";
+
+                            //更改OrderLog
+                            my_c.genxin(sql_OrderLog, "sql_conn2");
+                            my_c.genxin(sql_OrderLog2, "sql_conn2");
+                            //更改OrderLable
+                            my_c.genxin(sql_OrderLable, "sql_conn2");
+                            //插入ServiceLable记录
+                            my_c.genxin(sql_ServiceLable, "sql_conn7");
+
+                            //插入ServiceLog记录
+                            my_c.genxin(sql_ServiceLog, "sql_conn7");
+                            my_c.genxin(sql_ServiceLog1, "sql_conn7");
 
                             status = "true";
                             msg = "分配成功";
@@ -1837,10 +1906,7 @@ public partial class Execution : System.Web.UI.Page
                     
 
                     
-                    //插入ServiceLable记录
-
-
-                    //插入ServiceLog记录
+                    
 
 
                 }
@@ -1928,6 +1994,7 @@ public partial class Execution : System.Web.UI.Page
                             string service_state = State == "完成" ? "2" : "3";
 
                             string sql_order_state = "update [order] set state=" + order_state + "  where  id='" + orderid + "' or Number='" + orderid + "' ";
+
                             string sql_service_state = "update [Service] set state=" + service_state + "  where  FromValue='" + dt_Order.Rows[0]["ID"].ToString() + "'  ";
                             string service_state_old = "";//0正常,1服务中,2完成,3结束,4取消
                             if (order_State == "0")
@@ -1957,20 +2024,43 @@ public partial class Execution : System.Web.UI.Page
                             string ServiceNumber = "";
                             try
                             {
-                                ServiceNumber = my_c.GetTable(sql_service_detail).Rows[0]["Number"].ToString();
+                                ServiceNumber = my_c.GetTable(sql_service_detail, "sql_conn7").Rows[0]["Number"].ToString();
                             }
                             catch { }
                             string sql_OrderLable = "insert into  OrderLable (ID,OrderID,Name,UserUrl,AdminUrl,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + dt_Order.Rows[0]["ID"].ToString() + "','配送','http://tyservice-test.cqtyrl.com/Show/ServiceShow.aspx?ID=" + ServiceNumber + "','http://tyservice-test.cqtyrl.com/Management/ServiceShow.aspx?ID=" + ServiceNumber + "','" + time + "' )";
+
+                            string serviceID = "";
+                            string serviceBody = "";
+                            try
+                            {
+                                DataTable dt_service1 = my_c.GetTable("select * from [Service] where   FromValue='" + dt_Order.Rows[0]["ID"].ToString() + "'", "sql_conn7");
+                                serviceID = dt_service1.Rows[0]["id"].ToString();
+                                serviceBody = dt_service1.Rows[0]["Body"].ToString();
+
+                            }
+                            catch { }
+
+                             
+                            string sql_ServiceLog = "insert into  ServiceLog (ID,ServiceID,Name,Body,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + serviceID + "','全部完成','全部完成','" + time + "' )";
+                            string sql_ServiceLable = "insert into  ServiceLable (ID,ServiceID,Name,UserUrl,AdminUrl,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + serviceID + "','订单','http://tyorder-test.cqtyrl.com/Show/OrderShow.aspx?ID=" + dt_Order.Rows[0]["ID"].ToString() + "','http://tyorder-test.cqtyrl.com/Management/OrderShow.aspx?ID=" + dt_Order.Rows[0]["ID"].ToString() + "','" + time + "' )";
+
+
 
                             //更新订单状态
                             my_c.genxin(sql_order_state, "sql_conn2");
                             //更改service配送表状态
                             my_c.genxin(sql_service_state, "sql_conn7");
+                                //插入ServiceLable记录
+                            //    my_c.genxin(sql_ServiceLable, "sql_conn7");
 
-                            //更改OrderLog
-                            my_c.genxin(sql_OrderLog, "sql_conn2");
-                            //更改OrderLable
-                            my_c.genxin(sql_OrderLable, "sql_conn2");
+                            //    //插入ServiceLog记录
+                            //    my_c.genxin(sql_ServiceLog, "sql_conn7");
+                            
+
+                            ////更改OrderLog
+                            //my_c.genxin(sql_OrderLog, "sql_conn2");
+                            ////更改OrderLable
+                            //my_c.genxin(sql_OrderLable, "sql_conn2");
 
                             status = "true";
                             msg = "操作成功";
@@ -2272,7 +2362,26 @@ public partial class Execution : System.Web.UI.Page
         if (user.Rows.Count > 0)
         {
             phone = user.Rows[0]["yonghuming"].ToString();
+             
         }
+
+        if (!string.IsNullOrEmpty(phone))
+        {
+            //判断用户是否被禁用
+            //查询 用户绑定的配送权限和凭证扫描权限
+            string sql_user_temp = "select * from [User] where phone='" + phone + "'  ";
+            //Response.Write(sql);
+            //Response.End();
+            DataTable user_temp = new DataTable();
+            user_temp = my_c.GetTable(sql_user_temp, "sql_conn12");
+            //用户名存在，则登录成功
+            if (user_temp.Rows[0]["state"].ToString()!="0")
+            {
+                phone = "";
+            }
+
+        }
+        
 
         return phone;
     }
