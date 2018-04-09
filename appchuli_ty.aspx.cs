@@ -1401,7 +1401,7 @@ public partial class Execution : System.Web.UI.Page
                 {
                     DataTable dt = new DataTable();
                     //初始化派单的详细数据datatable
-                    string[] dt_araay = { "ServiceDetail", "Commodity", "ServiceRemarks", "UserNumber", "Address" };
+                    string[] dt_araay = { "ServiceDetail", "Commodity", "ServiceRemarks", "UserNumber", "Address", "Long", "Lat" };
                     dt = my_dt.setdt(dt_araay);
 
  
@@ -1418,6 +1418,14 @@ public partial class Execution : System.Web.UI.Page
                     //
                     string sql_UserDetailed = "select  * from UserDetailed where UserID='" + kehuID + "' and  Detailed='详细地址' ";  //
                     DataTable dt_UserDetailed = my_c.GetTable(sql_UserDetailed, "sql_conn12");
+
+                    //查询客户的经纬度
+                    string sql_Long = "select top 1  * from UserDetailed where UserID='" + kehuID + "' and  Detailed='经度' ";  //
+                    string sql_Lat = "select top 1 * from UserDetailed where UserID='" + kehuID + "' and  Detailed='维度' ";  //
+                     
+                    DataTable dt_UserLong = my_c.GetTable(sql_Long, "sql_conn12");
+                    DataTable dt_UserLat = my_c.GetTable(sql_Lat, "sql_conn12");
+
                     //
                     string Address = "";
                     try
@@ -1432,6 +1440,8 @@ public partial class Execution : System.Web.UI.Page
                         UserNumber = my_c.GetTable("select Number from [user] where id='" + kehuID + "'", "sql_conn12").Rows[0]["Number"].ToString();
                     }
                     catch { }
+
+                     
 
                     //查询当前派单的商品列表
                     //string sql_commodity = "select Name,Body,State from Service where  ServiceID='" + UserID + "' and Number='" + Number + "' ";
@@ -1451,6 +1461,20 @@ public partial class Execution : System.Web.UI.Page
                     temp_dr["ServiceRemarks"] = my_json_ghy.DataTableToJsonWithJavaScriptSerializer(dt_serviceremarks);
                     temp_dr["UserNumber"] = UserNumber;
                     temp_dr["Address"] = Address;
+
+                    try
+                    {
+                        temp_dr["Long"] = dt_UserLong.Rows[0]["value"].ToString();
+                        temp_dr["Lat"] = dt_UserLat.Rows[0]["value"].ToString();
+                         
+                    }
+                    catch
+                    {
+                        temp_dr["Long"] = "0";
+                        temp_dr["Lat"] = "0";
+                         
+                    }
+
                     //插入返回数据
                     dt.Rows.Add(temp_dr);
 
