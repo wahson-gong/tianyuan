@@ -85,8 +85,13 @@ public partial class Execution : System.Web.UI.Page
         {
             u3 = Request.Url.ToString();
         }
-        // yonghuming = yonghuming + "[" + type + "]";
+        //删除3天前的记录
+        //Delete * FROM sl_rizhi Where (((dtime)<DateAdd("d",-3,Date())))
+        my_c.genxin("Delete * FROM sl_rizhi Where (((dtime)<DateAdd('d',-3,Date())))");
+        //yonghuming = yonghuming + " " + type + "  ";
         my_c.genxin("insert into " + ConfigurationSettings.AppSettings["Prefix"].ToString() + "rizhi (yonghuming,miaoshu,ip,leixing) values(" + yonghuming + ",'" + u3 + "','" + Request.UserHostAddress.ToString() + "','提交操作')");
+        
+        
     }
     #endregion
     #region 记录文章审核
@@ -716,13 +721,31 @@ public partial class Execution : System.Web.UI.Page
                 //Response.Write(kehu_ids); Response.End();
 
                 //派单列表 
-                string sql_number = "select  distinct * from (select Number,UserName,Address ,State,CONVERT(varchar(100), UpTime , 23) as BeginTime  ,UserID  from Service where ServiceID='" + UserID + "' " + sql_BeginTime + sql_State + "   group by Number,UserName,Address ,State,UpTime,UserID ) as t order by BeginTime desc,State asc";
+                string sql_number = "select  distinct * from (select Number,UserName,Address ,State,CONVERT(varchar(100), UpTime , 23) as BeginTime  ,UserID  from Service where ServiceID='" + UserID + "' " + sql_BeginTime + sql_State + "   group by Number,UserName,Address ,State,UpTime,UserID ) as t order by BeginTime desc,Number desc";
                // Response.Write(sql_number); Response.End();
                 DataTable dt_number = my_c.GetTable(sql_number, "sql_conn7");
+
+                string ServiceIDs = string.Empty;
+                //遍历用户配送的派单列表ID 
+                foreach (DataRow dr in dt_number.Rows)
+                {
+                    if (string.IsNullOrEmpty(ServiceIDs))
+                    {
+                        ServiceIDs = my_c.GetTable("select ID  from Service where Number='" + dr["Number"].ToString() + "'", "sql_conn7").Rows[0]["ID"].ToString();
+                    }
+                    else
+                    {
+                        ServiceIDs = ServiceIDs+","+ my_c.GetTable("select ID  from Service where Number='" + dr["Number"].ToString() + "'", "sql_conn7").Rows[0]["ID"].ToString();
+                    }
                 
+                }
+
+                string sql_number1 = "select  * from  Service where  charindex(','+ID+',','," + ServiceIDs + ",') > 0  order by UpTime desc,Number desc ";
+                // Response.Write(sql_number); Response.End();
+                DataTable dt_number1 = my_c.GetTable(sql_number1, "sql_conn7");
                  
                 //遍历用户配送的派单列表
-                foreach (DataRow dr in dt_number.Rows)
+                foreach (DataRow dr in dt_number1.Rows)
                 {
                     
                     DataRow dr1 = dt.NewRow();
@@ -1450,7 +1473,15 @@ public partial class Execution : System.Web.UI.Page
                     DataTable dt_commodity = my_c.GetTable(sql_commodity, "sql_conn7");
                     
                     //备注
-                    string sql_serviceremarks = "select Body,CONVERT(varchar(100), InTime, 121) as InTime from ServiceRemarks where  ServiceID='" + dt_service.Rows[0]["ID"].ToString() + "' ";
+                    string temp_ServiceID = string.Empty;
+                    try
+                    {
+                        temp_ServiceID = dt_service.Rows[0]["ID"].ToString();
+                    }
+                    catch {
+                        temp_ServiceID = "no data";
+                    }
+                    string sql_serviceremarks = "select Body,CONVERT(varchar(100), InTime, 121) as InTime from ServiceRemarks where  ServiceID='" + temp_ServiceID + "' ";
 
 
                     DataTable dt_serviceremarks = my_c.GetTable(sql_serviceremarks, "sql_conn7");
@@ -1544,7 +1575,7 @@ public partial class Execution : System.Web.UI.Page
                         string erweima_url_str = "http://test1.thishttp.com/indexf.aspx?OrderID=" + dingdanhao;
                         string erweima_url_img = CreateCode_Simple(erweima_url_str);
                         //通过订单ID查询配送单的number字段
-                        DataTable dt_Service = my_c.GetTable("select Number   from [Service] where OutUrl like '%" + ID + "%' or EndUrl like '%" + ID + "%'  ", "sql_conn7");
+                        DataTable dt_Service = my_c.GetTable("select Number   from [Service] where  FromValue='"+ID+"' ", "sql_conn7");
                         
                         string ServiceNumber = "";
                         if (dt_Service.Rows.Count > 0)
@@ -2375,6 +2406,67 @@ public partial class Execution : System.Web.UI.Page
             }
             #endregion
 
+
+
+        }
+        else if (type == "yonghuweizhirizhi")
+        {
+            #region 记录没有经纬度客户的信息
+            string xingming = string.Empty;// 
+            string shoujihao = string.Empty;//
+            string yonghuid = string.Empty;//
+            string zhuangtai = string.Empty;//
+            string bianhao = string.Empty;//
+            string kehuID = string.Empty;
+            try
+            {
+
+                shoujihao = Request.Params["shoujihao"];
+            }
+            catch { }
+
+
+
+            if (string.IsNullOrEmpty(shoujihao))
+            {
+                msg = "shoujihao客户手机号参数不能为空";
+                retrun_ajax(status, msg);
+                return;
+            }
+
+            string sql_UserDetailed = "select  * from [User] where Phone='" + shoujihao + "'  ";  //
+            DataTable dt_UserDetailed = my_c.GetTable(sql_UserDetailed, "sql_conn12");
+            //Response.Write(sql_UserDetailed); Response.End();
+
+            if (dt_UserDetailed.Rows.Count > 0)
+            {
+                kehuID=dt_UserDetailed.Rows[0]["ID"].ToString();
+
+                xingming = dt_UserDetailed.Rows[0]["Name"].ToString();
+                shoujihao = dt_UserDetailed.Rows[0]["Phone"].ToString();
+                yonghuid = dt_UserDetailed.Rows[0]["ID"].ToString();
+                zhuangtai = "未处理";
+                bianhao = dt_UserDetailed.Rows[0]["Number"].ToString();
+
+                //插入新的sql_yonghujingweiduyichangjilu记录
+                string sql_yonghujingweiduyichangjilu = "INSERT INTO sl_yonghujingweiduyichangjilu (xingming, shoujihao,yonghuid ,zhuangtai,bianhao) VALUES ('" + xingming + "', '" + shoujihao + "','" + yonghuid + "' ,'" + zhuangtai + "','" + bianhao + "'  )";
+                my_c.genxin(sql_yonghujingweiduyichangjilu);
+
+
+                msg = "提交成功";
+                status = "true";
+            }
+            else
+            {
+                msg = "当前客户的手机号不存在";
+                retrun_ajax(status, msg);
+                return;
+            
+            }
+             
+
+ 
+            #endregion
 
 
         }
