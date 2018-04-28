@@ -87,9 +87,17 @@ public partial class Execution : System.Web.UI.Page
         }
         //删除3天前的记录
         //Delete * FROM sl_rizhi Where (((dtime)<DateAdd("d",-3,Date())))
-        my_c.genxin("Delete * FROM sl_rizhi Where (((dtime)<DateAdd('d',-3,Date())))");
+        try
+        { my_c.genxin("Delete * FROM sl_rizhi Where (((dtime)<DateAdd('d',-3,Date())))"); }
+        catch { }
+        try
+        { 
+            my_c.genxin("insert into " + ConfigurationSettings.AppSettings["Prefix"].ToString() + "rizhi (yonghuming,miaoshu,ip,leixing) values(" + yonghuming + ",'" + u3 + "','" + Request.UserHostAddress.ToString() + "','提交操作')");
+        }
+        catch { }
+       
         //yonghuming = yonghuming + " " + type + "  ";
-        my_c.genxin("insert into " + ConfigurationSettings.AppSettings["Prefix"].ToString() + "rizhi (yonghuming,miaoshu,ip,leixing) values(" + yonghuming + ",'" + u3 + "','" + Request.UserHostAddress.ToString() + "','提交操作')");
+        
         
         
     }
@@ -670,7 +678,23 @@ public partial class Execution : System.Web.UI.Page
 
                 string sql_State = string.Empty;//查询派单状态
                 string State = string.Empty;//派单状态
-                 
+
+                int Page = 1;//页数
+                int PageSize = 1000;//每页需要多少条数据
+                try
+                {
+                    Page = int.Parse(Request.Params["Page"]);
+
+                }
+                catch { }
+
+                try
+                {
+                    PageSize = int.Parse(Request.Params["PageSize"]);
+
+                }
+                catch { }
+
                 try
                 {
                     BeginTime = Request.Params["BeginTime"];
@@ -702,6 +726,8 @@ public partial class Execution : System.Web.UI.Page
                     sql_State = "  and State = " + State + "  ";
                 }
 
+               
+
                 //查询配送用所在配送点下有哪些客户
                 //string kehu_ids = "";
                 //string sql_UserGroupLocation = "select userId from UserGroupLocation where GroupLocationID=(select GroupLocationID from UserGroupLocation where userid='" + UserID + "' )";
@@ -716,34 +742,51 @@ public partial class Execution : System.Web.UI.Page
                 //    {
                 //        kehu_ids =kehu_ids+","+ dr_UserGroupLocation["userid"].ToString();
                 //    }
-                
+
                 //}
                 //Response.Write(kehu_ids); Response.End();
 
                 //派单列表 
-                string sql_number = "select  distinct * from (select Number,UserName,Address ,State,CONVERT(varchar(100), UpTime , 23) as BeginTime  ,UserID  from Service where ServiceID='" + UserID + "' " + sql_BeginTime + sql_State + "   group by Number,UserName,Address ,State,UpTime,UserID ) as t order by BeginTime desc,Number desc";
-               // Response.Write(sql_number); Response.End();
+                string sql_number = "select distinct    Number,BeginTime from (select Number,UserName,Address ,State,UpTime as BeginTime  ,UserID  from Service where ServiceID='" + UserID + "' " + sql_BeginTime + sql_State + "   group by Number,UserName,Address ,State,UpTime,UserID ) as t order by BeginTime desc,Number desc";
+               
                 DataTable dt_number = my_c.GetTable(sql_number, "sql_conn7");
 
+
+                //翻页
+                dt_number = this.GetPagedTable(dt_number, Page, PageSize);
+               
+
                 string ServiceIDs = string.Empty;
+                //查询所有配送单 service 
+                DataTable ServiceAll = my_c.GetTable("select ID,Number,UserName,UserID,Address,State, UpTime , BeginTime,ServiceID,Name,Num  from Service where ServiceID='" + UserID + "' " + sql_BeginTime + sql_State + " ", "sql_conn7");
+
+                //新的配单号
+                string[] dt_number1_araay = { "ID","Number", "UserName", "UserID", "Address", "State", "UpTime", "BeginTime", "ServiceID", "Name", "Num" }; 
+                DataTable dt_number1 = my_dt.setdt(dt_number1_araay);
+
                 //遍历用户配送的派单列表ID 
                 foreach (DataRow dr in dt_number.Rows)
                 {
-                    if (string.IsNullOrEmpty(ServiceIDs))
-                    {
-                        ServiceIDs = my_c.GetTable("select ID  from Service where Number='" + dr["Number"].ToString() + "'", "sql_conn7").Rows[0]["ID"].ToString();
-                    }
-                    else
-                    {
-                        ServiceIDs = ServiceIDs+","+ my_c.GetTable("select ID  from Service where Number='" + dr["Number"].ToString() + "'", "sql_conn7").Rows[0]["ID"].ToString();
-                    }
-                
+                    //if (string.IsNullOrEmpty(ServiceIDs))
+                    //{
+                    //    ServiceIDs = ServiceAll.Select(" Number='" + dr["Number"].ToString() + "'")[0]["ID"].ToString();
+                    //}
+                    //else
+                    //{
+                    //    ServiceIDs = ServiceIDs+","+ ServiceAll.Select(" Number='" + dr["Number"].ToString() + "'")[0]["ID"].ToString();
+                    //}
+                    // string sql_number1 = ServiceAll.Select("ID='" + ServiceAll.Select(" Number='" + dr["Number"].ToString() + "'")[0]["ID"].ToString() + "'") 
+                    //"select  Number,UserName,UserID,Address,State,BeginTime  from  Service where  ID='" + ServiceAll.Select(" Number='" + dr["Number"].ToString() + "'")[0]["ID"].ToString() + "' order by UpTime desc,Number desc ";
+                    ServiceIDs = ServiceAll.Select(" Number='" + dr["Number"].ToString() + "'")[0]["ID"].ToString();
+                    //Response.Write(ServiceIDs); Response.Flush();
+                    dt_number1.Rows.Add(ServiceAll.Select("ID='" + ServiceIDs + "'")[0].ItemArray );
                 }
+                 //Response.Write(dt_number1.Rows.Count.ToString()); Response.Flush();
 
-                string sql_number1 = "select  * from  Service where  charindex(','+ID+',','," + ServiceIDs + ",') > 0  order by UpTime desc,Number desc ";
+                //string sql_number1 = "select  Number,UserName,UserID,Address,State,BeginTime  from  Service where  charindex(','+ID+',','," + ServiceIDs + ",') > 0  order by UpTime desc,Number desc ";
                 // Response.Write(sql_number); Response.End();
-                DataTable dt_number1 = my_c.GetTable(sql_number1, "sql_conn7");
-                 
+                //DataTable dt_number1 = my_c.GetTable(sql_number1, "sql_conn7");
+
                 //遍历用户配送的派单列表
                 foreach (DataRow dr in dt_number1.Rows)
                 {
@@ -774,27 +817,23 @@ public partial class Execution : System.Web.UI.Page
 
 
                     dr1["State"] = dr["State"].ToString();
-                    dr1["BeginTime"] = dr["BeginTime"].ToString();
+                    dr1["BeginTime"] = dr["UpTime"].ToString();
 
                     //查询该派单下的所有商品
                     string sql = string.Empty;
-                    sql = "select Name,Num   from Service as s1 where  s1.ServiceID='" + UserID + "'  and s1.Number='" + dr["Number"].ToString() + "' ";
+                    sql = " ServiceID='" + UserID + "'  and Number='" + dr["Number"].ToString() + "' ";
                     //Response.Write(sql + "  <br>");
                     //Response.Flush();
                     //所有商品列表
-                    DataTable dt2 = my_c.GetTable(sql, "sql_conn7");
+                    DataTable dt2 = this.ToDataTable(ServiceAll.Select(sql));
                     dr1["Names"] = my_json_ghy.DataTableToJsonWithJavaScriptSerializer(dt2);
                      
                     //插入返回数据
                     dt.Rows.Add(dr1);
-                     
 
+                   // Response.Write("<br/>"+dr["BeginTime"].ToString()+"<br/>"); Response.Flush();
                 }
-
-
-
-
-
+                 
                 //dt = my_c.GetTable(sql, "sql_conn7");
                 status = "true";
                 msg = my_json_ghy.DataTableToJsonWithJavaScriptSerializer(dt);
@@ -968,19 +1007,23 @@ public partial class Execution : System.Web.UI.Page
                         string temp_sql = "select top 1 g.Name,g.Latitude,g.Longitude,g.ID from UserGroupLocation as u , GroupLocation as g where u.UserID='" + kehu_ID + "' and g.ID= u.GroupLocationID";//查询配送点的详情
                         dt_GroupLocation = my_c.GetTable(temp_sql, "sql_conn6");
 
-                        //{ "Name", "State", "Latitude", "Longitude" };
-                        DataRow temp_dr = dt.NewRow();
-                        temp_dr["State"] = "配送中";
-                        temp_dr["ID"] = dt_GroupLocation.Rows[0]["ID"].ToString();
-                        temp_dr["Name"] = dt_GroupLocation.Rows[0]["Name"].ToString();
-                        temp_dr["Latitude"] = dt_GroupLocation.Rows[0]["Latitude"].ToString();
-                        temp_dr["Longitude"] = dt_GroupLocation.Rows[0]["Longitude"].ToString();
-                        //插入返回数据
-                        //如果记录已存在则不再插入数据
-                        if (dt.Select("ID='" + dt_GroupLocation.Rows[0]["ID"].ToString() + "'").Length == 0)
+                        if (dt_GroupLocation.Rows.Count > 0)
                         {
-                            dt.Rows.Add(temp_dr);
+                            //{ "Name", "State", "Latitude", "Longitude" };
+                            DataRow temp_dr = dt.NewRow();
+                            temp_dr["State"] = "配送中";
+                            temp_dr["ID"] = dt_GroupLocation.Rows[0]["ID"].ToString();
+                            temp_dr["Name"] = dt_GroupLocation.Rows[0]["Name"].ToString();
+                            temp_dr["Latitude"] = dt_GroupLocation.Rows[0]["Latitude"].ToString();
+                            temp_dr["Longitude"] = dt_GroupLocation.Rows[0]["Longitude"].ToString();
+                            //插入返回数据
+                            //如果记录已存在则不再插入数据
+                            if (dt.Select("ID='" + dt_GroupLocation.Rows[0]["ID"].ToString() + "'").Length == 0)
+                            {
+                                dt.Rows.Add(temp_dr);
+                            }
                         }
+                        
                         
 
                     }
@@ -1215,7 +1258,23 @@ public partial class Execution : System.Web.UI.Page
 
                 string Long = string.Empty;//经度
                 string Lat = string.Empty;//纬度
-                
+
+                int Page = 1;//页数
+                int PageSize = 1000;//每页需要多少条数据
+                try
+                {
+                    Page = int.Parse(Request.Params["Page"]);
+
+                }
+                catch { }
+
+                try
+                {
+                    PageSize = int.Parse(Request.Params["PageSize"]);
+
+                }
+                catch { }
+
 
                 try
                 {
@@ -1288,10 +1347,33 @@ public partial class Execution : System.Web.UI.Page
 
                 if (!string.IsNullOrEmpty(GroupLocationID))
                 {
+                    // charindex(','+ID+',','," + ServiceIDs + ",') > 0 
+                    string sql_number_all = "select  distinct * from (select Number,UserName,Address ,State,CONVERT(varchar(100), UpTime , 23) as BeginTime  ,UserID,Name,Num,ServiceID  from Service where ServiceID='" + UserID + "'  " + sql_BeginTime + sql_State + " group by Number,UserName,Address ,State,UpTime,UserID,Name,Num,ServiceID) as t order by BeginTime desc,State asc";
+                    DataTable dt_number_all = my_c.GetTable(sql_number_all, "sql_conn7");
+                     
                     //遍历配送点对应的客户
-                    DataTable dt_UserGroupLocation = my_c.GetTable(" select UserID from  UserGroupLocation     where  GroupLocationID='" + GroupLocationID + "' ", "sql_conn6");
-                    foreach(DataRow dr_kehu in dt_UserGroupLocation.Rows)
+                    DataTable dt_UserGroupLocation = my_c.GetTable(" select UserID from  UserGroupLocation     where  GroupLocationID='" + GroupLocationID + "'   ", "sql_conn6");
+                    //查找这个配送点下面的对应客户
+                    for (int i = dt_UserGroupLocation.Rows.Count - 1; i >= 0; i--)
                     {
+                        string kehuID_temp = dt_UserGroupLocation.Rows[i]["UserID"].ToString();
+                        if (dt_number_all.Select("UserID='" + kehuID_temp + "' ").Length == 0)
+                        {
+                            dt_UserGroupLocation.Rows.RemoveAt(i);
+                        }
+                        else
+                        {
+                            //Response.Write("1<br/>" + kehuID_temp);
+                        }
+                        
+
+                    }
+                    //Response.End();
+
+                    foreach (DataRow dr_kehu in dt_UserGroupLocation.Rows)
+                    {
+
+                        //Response.Write(dr_kehu["UserID"].ToString()); Response.Flush();
                         //得到客户的ID
                         string kehuID = dr_kehu["UserID"].ToString();
                         //查询service表中 该配送点的下单客户  UserID=kehuID
@@ -1304,16 +1386,18 @@ public partial class Execution : System.Web.UI.Page
                         string sql_Long = "select top 1  * from UserDetailed where UserID='" + kehuID + "' and  Detailed='经度' ";  //
                         string sql_Lat = "select top 1 * from UserDetailed where UserID='" + kehuID + "' and  Detailed='维度' ";  //
                         //Response.Write(sql_UserDetailed); Response.End();
-                        DataTable dt_number = my_c.GetTable(sql_number, "sql_conn7");
+                        //DataTable dt_number = my_c.GetTable(sql_number, "sql_conn7");
+                        DataTable dt_number =this.ToDataTable(dt_number_all.Select("UserID='" + kehuID + "' "));
                         DataTable dt_UserDetailed = my_c.GetTable(sql_UserDetailed, "sql_conn12");
 
                         DataTable dt_UserLong = my_c.GetTable(sql_Long, "sql_conn12");
                         DataTable dt_UserLat = my_c.GetTable(sql_Lat, "sql_conn12");
 
+                        //dt_number = this.GetPagedTable(dt_number,Page,PageSize);
+
                         //遍历用户配送的派单列表
                         foreach (DataRow dr in dt_number.Rows)
-                        {
-
+                        { 
                             DataRow dr1 = dt.NewRow();
                             //"UserName", "Names", "Address", "State", "BeginTime"
                             dr1["Number"] = dr["Number"].ToString();
@@ -1353,7 +1437,8 @@ public partial class Execution : System.Web.UI.Page
                             //Response.Write(sql + "  <br>");
                             //Response.Flush();
                             //所有商品列表
-                            DataTable dt2 = my_c.GetTable(sql, "sql_conn7");
+                            
+                            DataTable dt2 = this.ToDataTable(dt_number_all.Select(" ServiceID='" + UserID + "'  and  Number='" + dr["Number"].ToString() + "'"));
                             dr1["Names"] = my_json_ghy.DataTableToJsonWithJavaScriptSerializer(dt2);
 
                             //插入返回数据
@@ -1365,10 +1450,10 @@ public partial class Execution : System.Web.UI.Page
                     }
  
                     //根据距离排序
-                    dt.DefaultView.Sort = "Distance ASC";
+                    dt.DefaultView.Sort = "Distance DESC";
                     dt = dt.DefaultView.ToTable();
 
-
+                    dt = this.GetPagedTable(dt,Page,PageSize);
                     //dt = my_c.GetTable(sql, "sql_conn7");
                     status = "true";
                     msg = my_json_ghy.DataTableToJsonWithJavaScriptSerializer(dt);
@@ -1418,7 +1503,7 @@ public partial class Execution : System.Web.UI.Page
                     UserID = this.getUserid();
                 }
                 catch { }
-
+               
 
                 if (!string.IsNullOrEmpty(Number))
                 {
@@ -1429,7 +1514,8 @@ public partial class Execution : System.Web.UI.Page
 
  
                     //查询当前派单的详情 （配单号；状态；时间；地址 ；用户姓名；用户电话；配送员姓名；配送员电话；）
-                    string sql_service = "select ID,UserID, Number, CONVERT(varchar(100), Uptime, 121),ServiceName,ServicePhone,Address,State,UserName,UserPhone,FromValue as OrderID  from Service where ServiceID='" + UserID + "' and Number='" + Number + "' group by ID,UserID ,Number,Uptime,ServiceName,ServicePhone,Address,State,UserName,UserPhone,FromValue";
+                    //string sql_service = "select ID,UserID, Number, CONVERT(varchar(100), Uptime, 121),ServiceName,ServicePhone,Address,State,UserName,UserPhone,FromValue as OrderID  from Service where ServiceID='" + UserID + "' and Number='" + Number + "' group by ID,UserID ,Number,Uptime,ServiceName,ServicePhone,Address,State,UserName,UserPhone,FromValue";
+                    string sql_service = "select ID,UserID, Number, CONVERT(varchar(100), Uptime, 121),ServiceName,ServicePhone,Address,State,UserName,UserPhone,FromValue as OrderID  from Service where  Number='" + Number + "' group by ID,UserID ,Number,Uptime,ServiceName,ServicePhone,Address,State,UserName,UserPhone,FromValue";
                     DataTable dt_service = my_c.GetTable(sql_service, "sql_conn7");
                     //查询下单用户编号
                     string kehuID ="";
@@ -1438,6 +1524,8 @@ public partial class Execution : System.Web.UI.Page
                          kehuID = dt_service.Rows[0]["UserID"].ToString();
                     }
                     catch { }
+                    //Response.Write(kehuID);
+                    //Response.End();
                     //
                     string sql_UserDetailed = "select  * from UserDetailed where UserID='" + kehuID + "' and  Detailed='详细地址' ";  //
                     DataTable dt_UserDetailed = my_c.GetTable(sql_UserDetailed, "sql_conn12");
@@ -1572,7 +1660,7 @@ public partial class Execution : System.Web.UI.Page
                         string ID = dt_Order.Rows[0]["ID"].ToString();
                         //生成二维码
                         string dingdanhao = dt_Order.Rows[0]["Number"].ToString();
-                        string erweima_url_str = "http://test1.thishttp.com/indexf.aspx?OrderID=" + dingdanhao;
+                        string erweima_url_str = "http://tyindex.cqtyrl.com/indexf.aspx?OrderID=" + dingdanhao;
                         string erweima_url_img = CreateCode_Simple(erweima_url_str);
                         //通过订单ID查询配送单的number字段
                         DataTable dt_Service = my_c.GetTable("select Number   from [Service] where  FromValue='"+ID+"' ", "sql_conn7");
@@ -1930,8 +2018,8 @@ public partial class Execution : System.Web.UI.Page
                             UserID = dt_Order.Rows[0]["UserID"].ToString();
                             ServiceID = this.getUserid();
                             State = "2";//该配送单直接就是已经完成配送
-                            EndUrl = "http://tylogistics-test.cqtyrl.com/WebApi/EndService.ashx?OrderID=" + dt_Order.Rows[0]["ID"].ToString();
-                            OutUrl = "http://tylogistics-test.cqtyrl.com/WebApi/OutService.ashx?OrderID=" + dt_Order.Rows[0]["ID"].ToString();
+                            EndUrl = "http://tylogistics.cqtyrl.com/WebApi/EndService.ashx?OrderID=" + dt_Order.Rows[0]["ID"].ToString();
+                            OutUrl = "http://tylogistics.cqtyrl.com/WebApi/OutService.ashx?OrderID=" + dt_Order.Rows[0]["ID"].ToString();
                             UpTime = DateTime.Now.ToString();
                             InTime = DateTime.Now.ToString();
 
@@ -1990,7 +2078,7 @@ public partial class Execution : System.Web.UI.Page
                                 ServiceNumber = my_c.GetTable(sql_service_detail, "sql_conn7").Rows[0]["Number"].ToString();
                             }
                             catch { }
-                            string sql_OrderLable = "insert into  OrderLable (ID,OrderID,Name,UserUrl,AdminUrl,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + dt_Order.Rows[0]["ID"].ToString() + "','配送','http://tyservice-test.cqtyrl.com/Show/ServiceShow.aspx?ID=" + ServiceNumber + "','http://tyservice-test.cqtyrl.com/Management/ServiceShow.aspx?ID=" + ServiceNumber + "','" + time + "' )";
+                            string sql_OrderLable = "insert into  OrderLable (ID,OrderID,Name,UserUrl,AdminUrl,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + dt_Order.Rows[0]["ID"].ToString() + "','配送','http://tyservice.cqtyrl.com/Show/ServiceShow.aspx?ID=" + ServiceNumber + "','http://tyservice.cqtyrl.com/Management/ServiceShow.aspx?ID=" + ServiceNumber + "','" + time + "' )";
 
                             string serviceID = "";
                             string serviceBody = "";
@@ -2005,7 +2093,7 @@ public partial class Execution : System.Web.UI.Page
 
                              sql_ServiceLog = "insert into  ServiceLog (ID,ServiceID,Name,Body,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + serviceID + "','创建配送','" + serviceBody + "','" + time + "' )";
                             string sql_ServiceLog1 = "insert into  ServiceLog (ID,ServiceID,Name,Body,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + serviceID + "','全部完成','全部完成','" + time + "' )";
-                            sql_ServiceLable = "insert into  ServiceLable (ID,ServiceID,Name,UserUrl,AdminUrl,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + serviceID + "','订单','http://tyorder-test.cqtyrl.com/Show/OrderShow.aspx?ID=" + dt_Order.Rows[0]["ID"].ToString() + "','http://tyorder-test.cqtyrl.com/Management/OrderShow.aspx?ID=" + dt_Order.Rows[0]["ID"].ToString() + "','" + time + "' )";
+                            sql_ServiceLable = "insert into  ServiceLable (ID,ServiceID,Name,UserUrl,AdminUrl,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + serviceID + "','订单','http://tyorder.cqtyrl.com/Show/OrderShow.aspx?ID=" + dt_Order.Rows[0]["ID"].ToString() + "','http://tyorder.cqtyrl.com/Management/OrderShow.aspx?ID=" + dt_Order.Rows[0]["ID"].ToString() + "','" + time + "' )";
 
                             //更改OrderLog
                             my_c.genxin(sql_OrderLog, "sql_conn2");
@@ -2153,7 +2241,7 @@ public partial class Execution : System.Web.UI.Page
                                 ServiceNumber = my_c.GetTable(sql_service_detail, "sql_conn7").Rows[0]["Number"].ToString();
                             }
                             catch { }
-                            string sql_OrderLable = "insert into  OrderLable (ID,OrderID,Name,UserUrl,AdminUrl,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + dt_Order.Rows[0]["ID"].ToString() + "','配送','http://tyservice-test.cqtyrl.com/Show/ServiceShow.aspx?ID=" + ServiceNumber + "','http://tyservice-test.cqtyrl.com/Management/ServiceShow.aspx?ID=" + ServiceNumber + "','" + time + "' )";
+                            string sql_OrderLable = "insert into  OrderLable (ID,OrderID,Name,UserUrl,AdminUrl,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + dt_Order.Rows[0]["ID"].ToString() + "','配送','http://tyservice.cqtyrl.com/Show/ServiceShow.aspx?ID=" + ServiceNumber + "','http://tyservice.cqtyrl.com/Management/ServiceShow.aspx?ID=" + ServiceNumber + "','" + time + "' )";
 
                             string serviceID = "";
                             string serviceBody = "";
@@ -2168,7 +2256,7 @@ public partial class Execution : System.Web.UI.Page
 
                              
                             string sql_ServiceLog = "insert into  ServiceLog (ID,ServiceID,Name,Body,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + serviceID + "','全部完成','全部完成','" + time + "' )";
-                            string sql_ServiceLable = "insert into  ServiceLable (ID,ServiceID,Name,UserUrl,AdminUrl,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + serviceID + "','订单','http://tyorder-test.cqtyrl.com/Show/OrderShow.aspx?ID=" + dt_Order.Rows[0]["ID"].ToString() + "','http://tyorder-test.cqtyrl.com/Management/OrderShow.aspx?ID=" + dt_Order.Rows[0]["ID"].ToString() + "','" + time + "' )";
+                            string sql_ServiceLable = "insert into  ServiceLable (ID,ServiceID,Name,UserUrl,AdminUrl,InTime) values('" + my_b.md5(my_b.get_bianhao()) + "','" + serviceID + "','订单','http://tyorder.cqtyrl.com/Show/OrderShow.aspx?ID=" + dt_Order.Rows[0]["ID"].ToString() + "','http://tyorder.cqtyrl.com/Management/OrderShow.aspx?ID=" + dt_Order.Rows[0]["ID"].ToString() + "','" + time + "' )";
 
 
 
@@ -2994,9 +3082,58 @@ public partial class Execution : System.Web.UI.Page
         s = s * EARTH_RADIUS;
         s = Math.Round(s * 10000) / 10000;
         return s*1000;
-    } 
+    }
     #endregion
-   
+
+
+    /// <summary>
+    /// datarows 转 datatable
+    /// </summary>
+    /// <param name="rows"></param>
+    /// <returns></returns>
+    private DataTable ToDataTable(DataRow[] rows)
+    {
+        if (rows == null || rows.Length == 0) return null;
+        DataTable tmp = rows[0].Table.Clone(); // 复制DataRow的表结构
+        foreach (DataRow row in rows)
+        {
+
+            tmp.ImportRow(row); // 将DataRow添加到DataTable中
+        }
+        return tmp;
+    }
+    /// <summary>
+    /// //PageIndex表示第几页，PageSize表示每页的记录数
+    /// </summary>
+    /// <param name="dt"></param>
+    /// <param name="PageIndex">第几页</param>
+    /// <param name="PageSize">每页的记录数</param>
+    /// <returns></returns>
+    public DataTable GetPagedTable(DataTable dt, int PageIndex, int PageSize)
+    {
+        if (PageIndex == 0)
+            return dt;//0页代表每页数据，直接返回
+        DataTable newdt = dt.Copy();
+        newdt.Clear();//copy dt的框架
+        int rowbegin = (PageIndex - 1) * PageSize;
+        int rowend = PageIndex * PageSize;
+        if (rowbegin >= dt.Rows.Count)
+            return newdt;//源数据记录数小于等于要显示的记录，直接返回dt
+        if (rowend > dt.Rows.Count)
+            rowend = dt.Rows.Count;
+        for (int i = rowbegin; i <= rowend - 1; i++)
+        {
+            DataRow newdr = newdt.NewRow();
+            DataRow dr = dt.Rows[i];
+            foreach (DataColumn column in dt.Columns)
+            {
+                newdr[column.ColumnName] = dr[column.ColumnName];
+            }
+            newdt.Rows.Add(newdr);
+        }
+        return newdt;
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)
